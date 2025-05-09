@@ -13,7 +13,7 @@ public:
 		m_window = window;
 		return true;
 	}
-	virtual void update() {}
+	virtual void update(float dt) {}
 	virtual void render() {}
 
 	virtual void mousePressed() {}
@@ -22,7 +22,7 @@ public:
 	virtual void keyPressed() {}
 	virtual void keyReleased() {}
 
-private:
+protected:
 
 	std::shared_ptr<sf::RenderWindow> m_window;
 

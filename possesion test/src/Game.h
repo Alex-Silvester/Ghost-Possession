@@ -11,45 +11,21 @@ public:
 	Game(const Game& game) = delete;
 	Game operator=(const Game& game) = delete;
 
-	~Game()
-	{
-		if (sm_game_ptr != nullptr)
-		{
-			delete sm_game_ptr;
-			sm_game_ptr = nullptr;
-		}
-	}
+	~Game();
 
-	static Game& get()
-	{
-		if (sm_game_ptr == nullptr)
-		{
-			sm_game_ptr = new Game();
-		}
-
-		return *sm_game_ptr;
-	}
+	static Game& get();
 
 	bool init(unsigned int max_fps = 0);
 
 	bool run();
 
-	void end()
-	{
-		if (m_window != nullptr)
-		{
-			m_window->close();
-		}
-	}
+	void end();
 
 public:
 
 private:
 
-	Game()
-	{
-		printf("Created Game\n");
-	}
+	Game();
 
 private:
 

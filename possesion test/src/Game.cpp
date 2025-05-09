@@ -2,6 +2,31 @@
 
 Game* Game::sm_game_ptr = nullptr;
 
+#define DEBUG_STEP false
+
+Game::Game()
+{
+	printf("Created Game\n");
+}
+
+Game::~Game()
+{
+	if (sm_game_ptr != nullptr)
+	{
+		delete sm_game_ptr;
+		sm_game_ptr = nullptr;
+	}
+}
+Game& Game::get()
+{
+	if (sm_game_ptr == nullptr)
+	{
+		sm_game_ptr = new Game();
+	}
+
+	return *sm_game_ptr;
+}
+
 bool Game::init(unsigned int max_fps)
 {
 
@@ -32,11 +57,6 @@ bool Game::run()
 		time_elapsed += dt;
 		updates += 1;
 
-		if (time_elapsed > 1.f)
-		{
-			time_elapsed -= 1.f;
-			printf("\x1b[1A\x1b[2K%f %f %d\n", 1.f / dt, dt, updates);
-		}
 		
 		while (const std::optional<sf::Event> event = m_window->pollEvent())
 		{
@@ -48,11 +68,32 @@ bool Game::run()
 
 		m_window->clear(sf::Color::Black);
 
-		playground.update();
+#if DEBUG_STEP == true
+		if (m_window->waitEvent().value().is<sf::Event::KeyPressed>())
+		{
+			playground.update(dt);
+		}
+#else
+		playground.update(dt);
+
+		if (time_elapsed > 1.f)
+		{
+			time_elapsed -= 1.f;
+			printf("\x1b[1A\x1b[2K%f %f %d\n", 1.f / dt, dt, updates);
+		}
+#endif
 		playground.render();
 
 		m_window->display();
 	}
 
 	return true;
+}
+
+void Game::end()
+{
+	if (m_window != nullptr)
+	{
+		m_window->close();
+	}
 }
