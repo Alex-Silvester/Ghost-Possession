@@ -1,0 +1,3 @@
+C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate.dir
+C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/sfml-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/sfml-subbuild/CMakeFiles/rebuild_cache.dir

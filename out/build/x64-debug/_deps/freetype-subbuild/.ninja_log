@@ -1,0 +1,37 @@
+# ninja log v5
+3	570	7684953632013265	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir	d9746ec85467b814
+4	997	0	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update	a7a8c2c6e7cee090
+997	1365	7684954843255079	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch	33eedeb2d5ef7d20
+571	14832	7684953774629159	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download	12e26e9576c138dc
+1365	1697	7684954846581908	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure	ddb421c04f94b340
+1697	2016	7684954849778305	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build	1ceb707723043b04
+2651	3116	7684954860775138	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-done	14102c553e54ec2d
+2017	2332	7684954852926878	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install	fe0d7f051e6930f
+2332	2651	7684954856124176	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test	5fd7bce8f50b41f2
+2651	3116	7684954860775138	CMakeFiles/freetype-populate-complete	14102c553e54ec2d
+2651	3116	7684954860775138	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-done	14102c553e54ec2d
+3	570	7684953632013265	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir	d9746ec85467b814
+571	14832	7684953774629159	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download	12e26e9576c138dc
+4	997	0	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update	a7a8c2c6e7cee090
+997	1365	7684954843255079	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch	33eedeb2d5ef7d20
+1365	1697	7684954846581908	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure	ddb421c04f94b340
+1697	2016	7684954849778305	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build	1ceb707723043b04
+2017	2332	7684954852926878	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install	fe0d7f051e6930f
+2332	2651	7684954856124176	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test	5fd7bce8f50b41f2
+2651	3116	7684954860775138	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate-complete	14102c553e54ec2d
+3	1072	0	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update	a7a8c2c6e7cee090
+3	1072	0	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update	a7a8c2c6e7cee090
+1072	1617	7684958433289354	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch	33eedeb2d5ef7d20
+1072	1617	7684958433289354	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch	33eedeb2d5ef7d20
+1617	2027	7684958437383392	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure	ddb421c04f94b340
+1617	2027	7684958437383392	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure	ddb421c04f94b340
+2027	2408	7684958441184261	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build	1ceb707723043b04
+2027	2408	7684958441184261	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build	1ceb707723043b04
+2408	2838	7684958445490457	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install	fe0d7f051e6930f
+2408	2838	7684958445490457	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install	fe0d7f051e6930f
+2838	3243	7684958449551186	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test	5fd7bce8f50b41f2
+2838	3243	7684958449551186	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test	5fd7bce8f50b41f2
+3243	3750	7684958454616979	CMakeFiles/freetype-populate-complete	14102c553e54ec2d
+3243	3750	7684958454616979	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-done	14102c553e54ec2d
+3243	3750	7684958454616979	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate-complete	14102c553e54ec2d
+3243	3750	7684958454616979	C:/Users/alexs/Games_Tech/2nd year/various cpp/Ghost Possession/out/build/x64-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-done	14102c553e54ec2d
