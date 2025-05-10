@@ -11,6 +11,21 @@ void PossessableBox::keyPressed(const sf::Event& event)
 		keyHeld.D = true;
 		m_velocity += {100.f, 0};
 	}
+	if (code == Key::A && !keyHeld.A)
+	{
+		keyHeld.A = true;
+		m_velocity += {-100.f, 0};
+	}
+	if (code == Key::W && !keyHeld.W)
+	{
+		keyHeld.W = true;
+		m_velocity += {0,-100.f};
+	}
+	if (code == Key::S && !keyHeld.S)
+	{
+		keyHeld.S = true;
+		m_velocity += {0,100.f};
+	}
 }
 
 void PossessableBox::keyReleased(const sf::Event& event)
@@ -22,6 +37,21 @@ void PossessableBox::keyReleased(const sf::Event& event)
 	{
 		keyHeld.D = false;
 		m_velocity += {-100.f, 0};
+	}
+	if (code == Key::A && keyHeld.A)
+	{
+		keyHeld.A = false;
+		m_velocity += {100.f, 0};
+	}
+	if (code == Key::W && keyHeld.W)
+	{
+		keyHeld.W = false;
+		m_velocity += {0, 100.f};
+	}
+	if (code == Key::S && keyHeld.S)
+	{
+		keyHeld.S = false;
+		m_velocity += {0, -100.f};
 	}
 }
 
