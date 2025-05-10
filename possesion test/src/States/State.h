@@ -16,11 +16,11 @@ public:
 	virtual void update(float dt) {}
 	virtual void render() {}
 
-	virtual void mousePressed() {}
-	virtual void mouseReleased() {}
+	virtual void mousePressed(const sf::Event& event) {}
+	virtual void mouseReleased(const sf::Event& event) {}
 
-	virtual void keyPressed() {}
-	virtual void keyReleased() {}
+	virtual void keyPressed(const sf::Event& event) {}
+	virtual void keyReleased(const sf::Event& event) {}
 
 protected:
 

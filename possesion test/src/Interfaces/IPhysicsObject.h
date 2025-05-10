@@ -31,6 +31,9 @@ public:
 		m_velocity = vec;
 	}
 
+	void addVelocity(float x, float y) { m_velocity += sf::Vector2f(x, y); }
+	void addVelocity(sf::Vector2f vec) { m_velocity += vec; }
+
 	void setGravity(float x, float y)
 	{
 		m_gravity = { x, y };

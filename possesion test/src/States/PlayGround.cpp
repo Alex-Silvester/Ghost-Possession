@@ -12,7 +12,7 @@ bool PlayGround::init(std::shared_ptr<sf::RenderWindow> window)
 	}
 
 	m_player = Player(m_player_texture);
-	m_player.init({ 0,1 });
+	m_player.init({ 0,cst::s_gravity });
 	m_player.scale(4, 4);
 
 	if (!m_box_texture.loadFromFile("../possesion test/Data/yellow_block.png"))
@@ -22,7 +22,7 @@ bool PlayGround::init(std::shared_ptr<sf::RenderWindow> window)
 	}
 
 	m_box = Box(m_box_texture);
-	m_box.scale(4, 4);
+	m_box.scale(12,12);
 
 	m_box.setPosition(0, 300);
 
@@ -49,4 +49,50 @@ void PlayGround::render()
 {
 	m_window->draw(m_player);
 	m_window->draw(m_box);
+}
+
+void PlayGround::keyPressed(const sf::Event& event)
+{
+	using namespace sf::Keyboard;
+	Key code = event.getIf<sf::Event::KeyPressed>()->code;
+
+	if (code == Key::Space)
+	{
+		m_player.jump(350.f);
+	}
+	if (code == Key::A && !keyHeld.A)
+	{
+		keyHeld.A = true;
+		m_player.addVelocity(-100.f, 0);
+	}
+	if (code == Key::D && !keyHeld.D)
+	{
+		keyHeld.D = true;
+		m_player.addVelocity(100.f, 0);
+	}
+}
+
+void PlayGround::keyReleased(const sf::Event& event)
+{
+	using namespace sf::Keyboard;
+	Key code = event.getIf<sf::Event::KeyReleased>()->code;
+
+	if (code == Key::A)
+	{
+		keyHeld.A = false;
+		m_player.addVelocity(100.f, 0);
+	}
+	if (code == Key::D)
+	{
+		keyHeld.D = false;
+		m_player.addVelocity(-100.f, 0);
+	}
+}
+
+void PlayGround::mousePressed(const sf::Event& event)
+{
+}
+
+void PlayGround::mouseReleased(const sf::Event& event)
+{
 }

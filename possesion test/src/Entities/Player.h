@@ -16,6 +16,8 @@ public:
 
 	void isGrounded() { m_velocity.y = 0; }
 
+	void jump(float vel = 100.f) { addVelocity(0, -vel); }
+
 private:
 
 };

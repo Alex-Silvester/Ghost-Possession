@@ -64,6 +64,14 @@ bool Game::run()
 			{
 				m_window->close(); return true;
 			}
+			if (event->is<sf::Event::KeyPressed>())
+				playground.keyPressed(event.value());
+			if (event->is<sf::Event::KeyReleased>())
+				playground.keyReleased(event.value());
+			if (event->is<sf::Event::MouseButtonPressed>())
+				playground.mousePressed(event.value());
+			if (event->is<sf::Event::MouseButtonReleased>())
+				playground.mouseReleased(event.value());
 		}
 
 		m_window->clear(sf::Color::Black);
