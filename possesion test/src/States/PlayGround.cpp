@@ -22,7 +22,7 @@ bool PlayGround::init(std::shared_ptr<sf::RenderWindow> window)
 	}
 
 	m_box = Box(m_box_texture);
-	m_box.scale(12,12);
+	m_box.scale(24,12);
 
 	m_box.setPosition(0, 300);
 
@@ -63,12 +63,14 @@ void PlayGround::keyPressed(const sf::Event& event)
 	if (code == Key::A && !keyHeld.A)
 	{
 		keyHeld.A = true;
-		m_player.addVelocity(-100.f, 0);
+		m_player.addVelocity(-cst::s_player_speed, 0);
+		m_player.flip(-1);
 	}
 	if (code == Key::D && !keyHeld.D)
 	{
 		keyHeld.D = true;
-		m_player.addVelocity(100.f, 0);
+		m_player.addVelocity(cst::s_player_speed, 0);
+		m_player.flip(1);
 	}
 }
 
@@ -80,12 +82,12 @@ void PlayGround::keyReleased(const sf::Event& event)
 	if (code == Key::A)
 	{
 		keyHeld.A = false;
-		m_player.addVelocity(100.f, 0);
+		m_player.addVelocity(cst::s_player_speed, 0);
 	}
 	if (code == Key::D)
 	{
 		keyHeld.D = false;
-		m_player.addVelocity(-100.f, 0);
+		m_player.addVelocity(-cst::s_player_speed, 0);
 	}
 }
 

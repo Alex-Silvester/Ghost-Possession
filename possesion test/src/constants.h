@@ -1,6 +1,9 @@
 #pragma once
 
+#define constant static const
+
 namespace cst
 {
-	static const float s_gravity = 7.55f;
+	constant float s_gravity = 7.55f;
+	constant float s_player_speed = 300.f;
 }
