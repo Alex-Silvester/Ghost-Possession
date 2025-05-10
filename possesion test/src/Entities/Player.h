@@ -41,6 +41,7 @@ public:
 
 	void unpossess()
 	{
+		m_possessable_obj_ptr->resetColour();
 		m_possessable_obj_ptr = nullptr;
 	}
 
