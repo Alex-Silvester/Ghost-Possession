@@ -13,6 +13,8 @@ class IPhysicsObject
 {
 public:
 
+	IPhysicsObject() = default;
+
 	void updateGravity()
 	{
 		m_velocity += m_gravity;

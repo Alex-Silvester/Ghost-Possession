@@ -23,8 +23,11 @@ bool PlayGround::init(std::shared_ptr<sf::RenderWindow> window)
 
 	m_box = Box(m_box_texture);
 	m_box.scale(24,12);
-
 	m_box.setPosition(0, 300);
+
+	m_possession_test = PossessableBox(m_box_texture);
+	m_possession_test.scale(6, 12);
+	m_possession_test.setPosition(300,10);
 
 	return true;
 }
@@ -33,15 +36,10 @@ void PlayGround::update(float dt)
 {
 	m_player.update(dt);
 
-	//if player intersects with a block
-	if (m_player.intersects(m_box.getFloatRect()))
+	if(!m_player.isPossessingObject())
 	{
-		//if the player is moved up from the block
-		if (m_player.outsideCollision(m_player.getSprite(), m_box.getFloatRect()).y < 0)
-		{
-			//the player is on the ground (set velocity to 0 to stop adding too much velocity)
-			m_player.isGrounded();
-		}
+		physicsCollision(m_box);
+		physicsCollision(m_possession_test);
 	}
 }
 
@@ -49,45 +47,41 @@ void PlayGround::render()
 {
 	m_window->draw(m_player);
 	m_window->draw(m_box);
+	m_window->draw(m_possession_test);
 }
 
 void PlayGround::keyPressed(const sf::Event& event)
 {
-	using namespace sf::Keyboard;
-	Key code = event.getIf<sf::Event::KeyPressed>()->code;
-
-	if (code == Key::Space)
+	if (m_player.isPossessingObject())
 	{
-		m_player.jump(350.f);
+		m_player.getPossessedObject()->keyPressed(event);
 	}
-	if (code == Key::A && !keyHeld.A)
+	else
 	{
-		keyHeld.A = true;
-		m_player.addVelocity(-cst::s_player_speed, 0);
-		m_player.flip(-1);
+		m_player.keyPressed(event);
 	}
-	if (code == Key::D && !keyHeld.D)
+	if (event.getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::LControl)
 	{
-		keyHeld.D = true;
-		m_player.addVelocity(cst::s_player_speed, 0);
-		m_player.flip(1);
+		if(!m_player.isPossessingObject())
+		{
+			m_player.possess(&m_possession_test);
+		}
+		else
+		{
+			m_player.unpossess();
+		}
 	}
 }
 
 void PlayGround::keyReleased(const sf::Event& event)
 {
-	using namespace sf::Keyboard;
-	Key code = event.getIf<sf::Event::KeyReleased>()->code;
-
-	if (code == Key::A)
+	if (m_player.isPossessingObject())
 	{
-		keyHeld.A = false;
-		m_player.addVelocity(cst::s_player_speed, 0);
+		m_player.getPossessedObject()->keyReleased(event);
 	}
-	if (code == Key::D)
+	else
 	{
-		keyHeld.D = false;
-		m_player.addVelocity(-cst::s_player_speed, 0);
+		m_player.keyReleased(event);
 	}
 }
 
@@ -97,4 +91,18 @@ void PlayGround::mousePressed(const sf::Event& event)
 
 void PlayGround::mouseReleased(const sf::Event& event)
 {
+}
+
+void PlayGround::physicsCollision(GameObject& obj)
+{
+	//if player intersects with a block
+	if (m_player.intersects(obj.getFloatRect()) && dynamic_cast<IPhysicsObject*>(&m_box))
+	{
+		//if the player is moved up from the block
+		if (m_player.outsideCollision(m_player.getSprite(), obj.getFloatRect()).y < 0)
+		{
+			//the player is on the ground (set velocity to 0 to stop adding too much velocity)
+			m_player.isGrounded();
+		}
+	}
 }

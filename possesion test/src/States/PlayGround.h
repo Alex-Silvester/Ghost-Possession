@@ -6,6 +6,8 @@
 #include "../constants.h"
 #include "State.h"
 
+#include <iostream>
+
 class PlayGround : public State
 {
 public:
@@ -24,16 +26,16 @@ public:
 
 private:
 
+	void physicsCollision(GameObject& obj);
+
+private:
+
 	sf::Texture m_player_texture;
 	Player m_player;
 
 	sf::Texture m_box_texture;
 	Box m_box;
 
-	struct KeyHeld
-	{
-		bool A = false;
-		bool D = false;
-		bool Space = false;
-	}keyHeld;
+	PossessableBox m_possession_test;
+
 };

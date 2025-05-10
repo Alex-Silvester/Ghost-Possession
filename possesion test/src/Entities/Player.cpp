@@ -10,7 +10,59 @@ void Player::init(sf::Vector2f gravity)
 
 void Player::update(float dt)
 {
-	updateGravity();
+	if (isPossessingObject())
+	{
+		m_sprite->setPosition(m_possessable_obj_ptr->updateMovement(dt));
+	}
+	else
+	{
+		updateGravity();
 
-	move(m_velocity * dt);
+		move(m_velocity * dt);
+	}
+}
+
+void Player::keyPressed(const sf::Event& event)
+{
+	using namespace sf::Keyboard;
+	Key code = event.getIf<sf::Event::KeyPressed>()->code;
+
+	if (code == Key::Space && !keyHeld.Space)
+	{
+		keyHeld.Space = true;
+		jump(350.f);
+	}
+	if (code == Key::A && !keyHeld.A)
+	{
+		keyHeld.A = true;
+		addVelocity(-cst::s_player_speed, 0);
+		flip(-1);
+	}
+	if (code == Key::D && !keyHeld.D)
+	{
+		keyHeld.D = true;
+		addVelocity(cst::s_player_speed, 0);
+		flip(1);
+	}
+}
+
+void Player::keyReleased(const sf::Event& event)
+{
+	using namespace sf::Keyboard;
+	Key code = event.getIf<sf::Event::KeyReleased>()->code;
+
+	if (code == Key::A && keyHeld.A)
+	{
+		keyHeld.A = false;
+		addVelocity(cst::s_player_speed, 0);
+	}
+	if (code == Key::D && keyHeld.D)
+	{
+		keyHeld.D = false;
+		addVelocity(-cst::s_player_speed, 0);
+	}
+	if (code == Key::Space && keyHeld.Space)
+	{
+		keyHeld.Space = false;
+	}
 }

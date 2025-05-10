@@ -99,7 +99,7 @@ bool Game::run()
 		if (time_elapsed > 1.f)
 		{
 			time_elapsed -= 1.f;
-			printf("\x1b[1A\x1b[2K%f %f %d\n", 1.f / dt, dt, updates);
+			//printf("\x1b[1A\x1b[2K%f %f %d\n", 1.f / dt, dt, updates);
 		}
 #endif
 		playground.render();
