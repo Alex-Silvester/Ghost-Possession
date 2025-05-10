@@ -65,7 +65,14 @@ bool Game::run()
 				m_window->close(); return true;
 			}
 			if (event->is<sf::Event::KeyPressed>())
+			{
+				if (event->getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::Escape)
+				{
+					m_window->close(); return true;
+				}
+
 				playground.keyPressed(event.value());
+			}
 			if (event->is<sf::Event::KeyReleased>())
 				playground.keyReleased(event.value());
 			if (event->is<sf::Event::MouseButtonPressed>())
