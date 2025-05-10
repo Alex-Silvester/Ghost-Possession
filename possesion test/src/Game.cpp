@@ -60,6 +60,11 @@ bool Game::run()
 		
 		while (const std::optional<sf::Event> event = m_window->pollEvent())
 		{
+			if (event->is<sf::Event::Resized>())
+			{
+				sf::Vector2f size = static_cast<sf::Vector2f>(m_window->getSize());
+				m_window->setView(sf::View(sf::FloatRect(sf::Vector2f(), size)));
+			}
 			if (event->is<sf::Event::Closed>())
 			{
 				m_window->close(); return true;
