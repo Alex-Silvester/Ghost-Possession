@@ -1,4 +1,4 @@
 #pragma once
 
 #include "Box.h"
-#include "PossessableBox.h"
+#include "PObject.h"

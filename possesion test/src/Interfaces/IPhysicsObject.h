@@ -47,7 +47,7 @@ public:
 
 	void insideCollision(sf::Sprite& moving_sprite, const sf::FloatRect& static_sprite);
 
-	sf::Vector2f outsideCollision(sf::Sprite& moving_sprite, const sf::FloatRect& static_sprite)
+	virtual sf::Vector2f outsideCollision(sf::Sprite& moving_sprite, const sf::FloatRect& static_sprite)
 	{
 		sf::Vector2f offset = shortestOffset(moving_sprite.getGlobalBounds(), static_sprite);
 

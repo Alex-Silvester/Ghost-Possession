@@ -3,12 +3,12 @@
 #include "Box.h"
 #include "../Interfaces/IPossessable.h"
 
-class PossessableBox : public Box, public IPossessable
+class PObject : public GameObject, public IPhysicsObject, public IPossessable
 {
 public:
 
-	PossessableBox() = default;
-	PossessableBox(const sf::Texture& texture) : Box(texture) {}
+	PObject() = default;
+	PObject(const sf::Texture& texture) : GameObject(texture) {}
 
 	void keyPressed(const sf::Event& event) override;
 	void keyReleased(const sf::Event& event) override;

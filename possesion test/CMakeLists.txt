@@ -2,7 +2,25 @@
 # project specific logic here.
 #
 
-set(SOURCE_FILES "main.cpp" "src/Game.h" "src/States/State.h" "src/States/PlayGround.h" "src/States/PlayGround.cpp" "src/States/States.h" "src/Game.cpp" "src/Entities/Player.h" "src/Entities/Entities.h" "src/Interfaces/Interfaces.h" "src/Interfaces/IPhysicsObject.h" "src/Entities/Player.cpp" "src/Objects/Box.h" "src/Objects/Objects.h" "src/constants.h" "src/Interfaces/IPossessable.h" "src/Objects/PossessableBox.h" "src/Objects/PossessableBox.cpp")
+set(SOURCE_FILES 
+"main.cpp" 
+"src/Game.h"
+"src/States/State.h"
+"src/States/PlayGround.h"
+"src/States/PlayGround.cpp" 
+"src/States/States.h" 
+"src/Game.cpp" 
+"src/Entities/Player.h" 
+"src/Entities/Entities.h"
+"src/Interfaces/Interfaces.h"
+"src/Interfaces/IPhysicsObject.h"
+"src/Entities/Player.cpp" 
+"src/Objects/Box.h" 
+"src/Objects/Objects.h"
+"src/constants.h" 
+"src/Interfaces/IPossessable.h" 
+"src/Objects/PObject.h" 
+"src/Objects/PObject.cpp")
 add_executable(CMakeTarget ${SOURCE_FILES})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

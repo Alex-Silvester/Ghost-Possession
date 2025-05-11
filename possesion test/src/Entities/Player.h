@@ -58,6 +58,18 @@ public:
 		return m_possessable_obj_ptr;
 	}
 
+	sf::Vector2f outsideCollision(sf::Sprite& moving_sprite, const sf::FloatRect& static_sprite) override
+	{
+		auto offset = IPhysicsObject::outsideCollision(moving_sprite, static_sprite);
+
+		if (offset.y < 0)
+		{
+			isGrounded();
+		}
+
+		return offset;
+	}
+
 private:
 
 	IPossessable* m_possessable_obj_ptr = nullptr;

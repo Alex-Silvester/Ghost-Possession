@@ -25,7 +25,7 @@ bool PlayGround::init(std::shared_ptr<sf::RenderWindow> window)
 	m_box.scale(24,12);
 	m_box.setPosition(0, 300);
 
-	m_possession_test = PossessableBox(m_box_texture);
+	m_possession_test = PObject(m_box_texture);
 	m_possession_test.scale(6, 12);
 	m_possession_test.setPosition(300,10);
 
@@ -38,8 +38,12 @@ void PlayGround::update(float dt)
 
 	if(!m_player.isPossessingObject())
 	{
-		physicsCollision(m_box);
-		physicsCollision(m_possession_test);
+		physicsCollision(m_player, m_box);
+		physicsCollision(m_player, m_possession_test);
+	}
+	else if(PObject* obj = dynamic_cast<PObject*>(m_player.getPossessedObject()))
+	{
+		physicsCollision(*obj, m_box);
 	}
 }
 
@@ -93,16 +97,13 @@ void PlayGround::mouseReleased(const sf::Event& event)
 {
 }
 
-void PlayGround::physicsCollision(GameObject& obj)
+void PlayGround::physicsCollision(GameObject & moving_obj, GameObject& static_obj)
 {
-	//if player intersects with a block
-	if (m_player.intersects(obj.getFloatRect()) && dynamic_cast<IPhysicsObject*>(&m_box))
+	if (moving_obj.intersects(static_obj.getFloatRect()))
 	{
-		//if the player is moved up from the block
-		if (m_player.outsideCollision(m_player.getSprite(), obj.getFloatRect()).y < 0)
+		if(auto temp = dynamic_cast<IPhysicsObject*>(&moving_obj))
 		{
-			//the player is on the ground (set velocity to 0 to stop adding too much velocity)
-			m_player.isGrounded();
+			temp->outsideCollision(moving_obj.getSprite(), static_obj.getFloatRect());
 		}
 	}
 }

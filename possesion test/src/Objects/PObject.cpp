@@ -1,7 +1,7 @@
 
-#include "PossessableBox.h"
+#include "PObject.h"
 
-void PossessableBox::keyPressed(const sf::Event& event)
+void PObject::keyPressed(const sf::Event& event)
 {
 	sf::Keyboard::Key code = event.getIf<sf::Event::KeyPressed>()->code;
 	using namespace sf::Keyboard;
@@ -28,7 +28,7 @@ void PossessableBox::keyPressed(const sf::Event& event)
 	}
 }
 
-void PossessableBox::keyReleased(const sf::Event& event)
+void PObject::keyReleased(const sf::Event& event)
 {
 	sf::Keyboard::Key code = event.getIf<sf::Event::KeyReleased>()->code;
 	using namespace sf::Keyboard;
@@ -55,7 +55,7 @@ void PossessableBox::keyReleased(const sf::Event& event)
 	}
 }
 
-sf::Vector2f PossessableBox::updateMovement(float dt)
+sf::Vector2f PObject::updateMovement(float dt)
 {
 	auto lerp = [](float a, float b, float t)->float {return a + (b - a) * t; };
 

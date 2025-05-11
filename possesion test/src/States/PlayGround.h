@@ -26,7 +26,7 @@ public:
 
 private:
 
-	void physicsCollision(GameObject& obj);
+	void physicsCollision(GameObject & moving_obj, GameObject& static_obj);
 
 private:
 
@@ -36,6 +36,6 @@ private:
 	sf::Texture m_box_texture;
 	Box m_box;
 
-	PossessableBox m_possession_test;
+	PObject m_possession_test;
 
 };
