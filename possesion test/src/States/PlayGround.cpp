@@ -21,9 +21,12 @@ bool PlayGround::init(std::shared_ptr<sf::RenderWindow> window)
 		return false;
 	}
 
-	m_box = Box(m_box_texture);
-	m_box.scale(24,12);
-	m_box.setPosition(0, 300);
+	for (int i = 0; i < 10; i++)
+	{
+		m_boxes.emplace_back(Box(m_box_texture));
+		m_boxes.back().scale(4, 4);
+		m_boxes.back().setPosition(sf::Vector2f( i * m_boxes.back().getSprite().getGlobalBounds().size.x, 300));
+	}
 
 	m_possession_test = PObject(m_box_texture);
 	m_possession_test.scale(6, 12);
@@ -38,20 +41,36 @@ void PlayGround::update(float dt)
 
 	if(!m_player.isPossessingObject())
 	{
-		physicsCollision(m_player, m_box);
+		for(auto& box : m_boxes)
+		{
+			physicsCollision(m_player, box);
+		}
 		physicsCollision(m_player, m_possession_test);
 	}
 	else if(PObject* obj = dynamic_cast<PObject*>(m_player.getPossessedObject()))
 	{
-		physicsCollision(*obj, m_box);
+		for(auto& box : m_boxes)
+		{
+			physicsCollision(*obj, box);
+		}
 	}
 }
 
+#define PLAYER_POS_CHECK true
 void PlayGround::render()
 {
+#if PLAYER_POS_CHECK == false
 	m_window->draw(m_player);
-	m_window->draw(m_box);
+#endif
+	for(auto& box : m_boxes)
+	{
+		m_window->draw(box);
+	}
 	m_window->draw(m_possession_test);
+
+#if PLAYER_POS_CHECK == true
+	m_window->draw(m_player);
+#endif
 }
 
 void PlayGround::keyPressed(const sf::Event& event)

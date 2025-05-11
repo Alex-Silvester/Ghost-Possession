@@ -34,19 +34,8 @@ public:
 		}
 	}
 
-	void possess(IPossessable* possessable_obj)
-	{
-		m_possessable_obj_ptr = possessable_obj;
-		m_prev_position = m_sprite->getPosition();
-	}
-
-	void unpossess()
-	{
-		m_possessable_obj_ptr->resetColour();
-		m_possessable_obj_ptr = nullptr;
-
-		m_sprite->setPosition(m_prev_position);
-	}
+	void possess(IPossessable* possessable_obj);
+	void unpossess();
 
 	bool isPossessingObject()
 	{

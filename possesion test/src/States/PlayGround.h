@@ -34,7 +34,7 @@ private:
 	Player m_player;
 
 	sf::Texture m_box_texture;
-	Box m_box;
+	std::vector<Box> m_boxes;
 
 	PObject m_possession_test;
 

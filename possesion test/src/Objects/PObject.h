@@ -14,4 +14,6 @@ public:
 	void keyReleased(const sf::Event& event) override;
 
 	sf::Vector2f updateMovement(float dt) override;
+
+	void unpossess() override;
 };

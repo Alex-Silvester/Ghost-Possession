@@ -12,7 +12,7 @@ void Player::update(float dt)
 {
 	if (isPossessingObject())
 	{
-		m_sprite->setPosition(m_possessable_obj_ptr->updateMovement(dt));
+		m_sprite->setPosition(m_possessable_obj_ptr->updateMovement(dt)-m_sprite->getGlobalBounds().size/2.f);
 	}
 	else
 	{
@@ -29,6 +29,20 @@ void Player::jump(float vel)
 		setVelocity(m_velocity.x, -vel);
 		m_grounded = false;
 	}
+}
+
+void Player::possess(IPossessable* possessable_obj)
+{
+	m_possessable_obj_ptr = possessable_obj;
+	m_prev_position = m_sprite->getPosition();
+}
+
+void Player::unpossess()
+{
+	m_possessable_obj_ptr->unpossess();
+	m_possessable_obj_ptr = nullptr;
+
+	m_sprite->setPosition(m_prev_position);
 }
 
 void Player::keyPressed(const sf::Event& event)

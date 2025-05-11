@@ -11,7 +11,7 @@ public:
 
 	virtual sf::Vector2f updateMovement(float dt) { return sf::Vector2f(); };
 
-	void resetColour() { m_flash_amount = 0.f; }
+	virtual void unpossess() { m_flash_amount = 0.f; }
 
 protected:
 

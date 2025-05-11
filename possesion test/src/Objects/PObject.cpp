@@ -69,5 +69,13 @@ sf::Vector2f PObject::updateMovement(float dt)
 
 	m_sprite->move(m_velocity * dt);
 
-	return m_sprite->getPosition();
+	return m_sprite->getGlobalBounds().getCenter();
+}
+
+void PObject::unpossess()
+{
+	IPossessable::unpossess();
+
+	m_sprite->setColor(sf::Color::White);
+	m_velocity = { 0,0 };
 }
