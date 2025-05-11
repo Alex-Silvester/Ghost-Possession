@@ -31,7 +31,7 @@ private:
 
 	static Game* sm_game_ptr;
 
-	std::shared_ptr<sf::RenderWindow> m_window = std::make_shared<sf::RenderWindow>(sf::VideoMode({ 720,540 }), "Game");
+	std::shared_ptr<sf::RenderWindow> m_window = std::make_shared<sf::RenderWindow>(sf::VideoMode({ 1080,720 }), "Game");
 
 	PlayGround playground;
 

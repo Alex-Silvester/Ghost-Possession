@@ -21,9 +21,9 @@ public:
 	void init(sf::Vector2f gravity);
 	void update(float dt);
 
-	void isGrounded() { m_velocity.y = 0; }
+	void isGrounded() { m_velocity.y = 0; m_grounded = true; }
 
-	void jump(float vel = 100.f) { setVelocity(m_velocity.x, -vel); }
+	void jump(float vel = 100.f);
 
 	void flip(int direction) 
 	{
@@ -37,12 +37,15 @@ public:
 	void possess(IPossessable* possessable_obj)
 	{
 		m_possessable_obj_ptr = possessable_obj;
+		m_prev_position = m_sprite->getPosition();
 	}
 
 	void unpossess()
 	{
 		m_possessable_obj_ptr->resetColour();
 		m_possessable_obj_ptr = nullptr;
+
+		m_sprite->setPosition(m_prev_position);
 	}
 
 	bool isPossessingObject()
@@ -73,6 +76,9 @@ public:
 private:
 
 	IPossessable* m_possessable_obj_ptr = nullptr;
+	sf::Vector2f m_prev_position;
+
+	bool m_grounded = false;
 
 	struct KeyHeld
 	{

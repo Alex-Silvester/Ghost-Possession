@@ -22,6 +22,15 @@ void Player::update(float dt)
 	}
 }
 
+void Player::jump(float vel)
+{
+	if (m_grounded) 
+	{
+		setVelocity(m_velocity.x, -vel);
+		m_grounded = false;
+	}
+}
+
 void Player::keyPressed(const sf::Event& event)
 {
 	using namespace sf::Keyboard;
