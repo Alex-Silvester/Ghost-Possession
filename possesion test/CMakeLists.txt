@@ -20,7 +20,7 @@ set(SOURCE_FILES
 "src/constants.h" 
 "src/Interfaces/IPossessable.h" 
 "src/Objects/PObject.h" 
-"src/Objects/PObject.cpp")
+"src/Objects/PObject.cpp" "src/GameObject.cpp")
 add_executable(CMakeTarget ${SOURCE_FILES})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

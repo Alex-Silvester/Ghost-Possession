@@ -15,19 +15,21 @@ bool PlayGround::init(std::shared_ptr<sf::RenderWindow> window)
 	m_player.init({ 0,cst::s_gravity });
 	m_player.scale(4, 4);
 
-	if (!m_box_texture.loadFromFile("../possesion test/Data/yellow_block.png"))
+	if (!m_box_texture.loadFromFile("../possesion test/Data/Stone Tile Map.png"))
 	{
-		printf("[ERROR] Failed to load player texture\n");
+		printf("[ERROR] Failed to load Block texture\n");
 		return false;
 	}
 
 	m_boxes.emplace_back(new PObject(m_box_texture));
+	m_boxes.back()->selectTextureView({ 32,32 });
 	m_boxes.back()->scale(6, 12);
 	m_boxes.back()->setPosition(300, 10);
 
 	for (int i = 0; i < 10; i++)
 	{
 		m_boxes.emplace_back(new Box(m_box_texture));
+		m_boxes.back()->selectTextureView({ 32,32 });
 		m_boxes.back()->scale(4, 4);
 		m_boxes.back()->setPosition(sf::Vector2f( i * m_boxes.back()->getSprite().getGlobalBounds().size.x, 300));
 	}
