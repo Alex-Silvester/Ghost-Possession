@@ -14,6 +14,16 @@ public:
 
 	PlayGround() {};
 
+	~PlayGround() 
+	{
+		int size = m_boxes.size();
+
+		for (int i = 0; i < size; i++)
+		{
+			delete m_boxes[i];
+		}
+	}
+
 	bool init(std::shared_ptr<sf::RenderWindow> window) override;
 	void update(float dt) override;
 	void render() override;
@@ -34,8 +44,8 @@ private:
 	Player m_player;
 
 	sf::Texture m_box_texture;
-	std::vector<Box> m_boxes;
+	std::vector<GameObject*> m_boxes;
 
-	PObject m_possession_test;
+	//PObject m_possession_test;
 
 };

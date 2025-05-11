@@ -35,6 +35,7 @@ void Player::possess(IPossessable* possessable_obj)
 {
 	m_possessable_obj_ptr = possessable_obj;
 	m_prev_position = m_sprite->getPosition();
+	flip(1);
 }
 
 void Player::unpossess()
