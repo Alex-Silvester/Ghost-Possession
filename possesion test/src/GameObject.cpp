@@ -7,7 +7,18 @@ GameObject::GameObject(const sf::Texture& texture)
 
 void GameObject::selectTextureView(sf::Vector2i size, sf::Vector2i position)
 {
+	sf::Vector2f scale_increase =
+	{
+		(float)size.x / m_sprite->getGlobalBounds().size.x,
+		(float)size.y / m_sprite->getGlobalBounds().size.y
+	};
+
+	printf("%f %f\n", scale_increase.x, scale_increase.y);
+
 	m_sprite->setTextureRect(sf::IntRect(position, size));
+
+	m_sprite->setScale({ m_sprite->getScale().x / scale_increase.x, m_sprite->getScale().y / scale_increase.y });
+
 }
 
 bool GameObject::intersects(const sf::FloatRect& rect)
