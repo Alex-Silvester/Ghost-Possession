@@ -42,6 +42,13 @@ bool PlayGround::init(std::shared_ptr<sf::RenderWindow> window)
 	m_boxes.back()->generateTexture(level_data, { 32,32 }, &m_box_texture);
 	m_boxes.back()->setPosition(0, 300);
 
+
+	auto test = lt::generateBlockData(4, 4);
+
+	m_boxes.emplace_back(new Box());
+	m_boxes.back()->generateTexture(test, { 32,32 }, &m_box_texture);
+	m_boxes.back()->setPosition(400, 400);
+
 	return true;
 }
 

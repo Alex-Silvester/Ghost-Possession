@@ -140,7 +140,6 @@ void GameObject::generateTexture(const std::vector<std::vector<unsigned int>>& d
 			m_vertex_array->append(vertices_2[1]);
 			m_vertex_array->append(vertices_2[2]);
 		}
-		printf("\n");
 	}
 }
 

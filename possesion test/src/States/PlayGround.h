@@ -4,6 +4,7 @@
 #include "../Objects/Objects.h"
 #include "../GameObject.h"
 #include "../constants.h"
+#include "../Tools/LevelTools.h"
 #include "State.h"
 
 #include <iostream>
