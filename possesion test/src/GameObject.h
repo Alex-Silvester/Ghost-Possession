@@ -7,15 +7,12 @@ class GameObject : public sf::Drawable
 public:
 
 	GameObject() = default;
-	GameObject(const sf::Texture& texture);
 
-	void selectTextureView(sf::Vector2i size, sf::Vector2i position = sf::Vector2i());
+	~GameObject();
 
 	bool intersects(const sf::FloatRect& rect);
 
-	sf::FloatRect getFloatRect();
-
-	sf::Sprite& getSprite();
+	const sf::FloatRect& getFloatRect() const;
 
 	//----------Position----------//
 	void setPosition(float x, float y);
@@ -32,11 +29,17 @@ public:
 	//----------Visuals----------//
 	void setColour(sf::Color col);
 
+	sf::Color getColour();
+
 	void scale(float x, float y);
 
 	void scale(sf::Vector2f vec);
 
+	sf::Vector2f getScale() { return m_scale; }
+
 	void setTransparancey(float alpha);
+
+	void generateTexture(const std::vector<std::vector<unsigned int>>& data, sf::Vector2u tile_size, sf::Texture* texture);
 	//----------Visuals----------//
 
 private:
@@ -45,5 +48,8 @@ private:
 
 protected:
 
-	std::optional<sf::Sprite> m_sprite;
+	std::optional<sf::VertexArray> m_vertex_array;
+	sf::Vector2f m_position;
+	sf::Texture* m_texture = nullptr;
+	sf::Vector2f m_scale = {1,1};
 };

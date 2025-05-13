@@ -12,7 +12,13 @@ void Player::update(float dt)
 {
 	if (isPossessingObject())
 	{
-		m_sprite->setPosition(m_possessable_obj_ptr->updateMovement(dt)-m_sprite->getGlobalBounds().size/2.f);
+		sf::Vector2f bounds = 
+		{
+			m_vertex_array->getBounds().size.x * m_scale.x, 
+			m_vertex_array->getBounds().size.y * m_scale.y 
+		};
+
+		setPosition(m_possessable_obj_ptr->updateMovement(dt)-bounds/2.f);
 	}
 	else
 	{
@@ -31,10 +37,19 @@ void Player::jump(float vel)
 	}
 }
 
+void Player::flip(int direction)
+{
+	if (direction / abs(direction) != m_scale.x / fabsf(m_scale.x))
+	{
+		scale({ direction / abs(direction) * fabsf(m_scale.x), m_scale.y });
+		move(-direction / abs(direction) * m_vertex_array->getBounds().size.x * fabsf(m_scale.x), 0.f);
+	}
+}
+
 void Player::possess(IPossessable* possessable_obj)
 {
 	m_possessable_obj_ptr = possessable_obj;
-	m_prev_position = m_sprite->getPosition();
+	m_prev_position = getPosition();
 	flip(1);
 }
 
@@ -43,7 +58,12 @@ void Player::unpossess()
 	m_possessable_obj_ptr->unpossess();
 	m_possessable_obj_ptr = nullptr;
 
-	m_sprite->setPosition(m_prev_position);
+	setPosition(m_prev_position);
+}
+
+bool Player::isPossessingObject()
+{
+	return m_possessable_obj_ptr != nullptr;
 }
 
 void Player::keyPressed(const sf::Event& event)
@@ -89,4 +109,15 @@ void Player::keyReleased(const sf::Event& event)
 	{
 		keyHeld.Space = false;
 	}
+}
+
+sf::Vector2f Player::outsideCollision(GameObject& moving_sprite, const GameObject& static_sprite)
+{
+	auto offset = IPhysicsObject::outsideCollision(moving_sprite, static_sprite);
+
+	if (offset.y < 0)
+	{
+		isGrounded();
+	}
+	return offset;
 }

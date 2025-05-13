@@ -2,6 +2,8 @@
 
 #include <SFML/graphics.hpp>
 
+#include "../GameObject.h"
+
 enum CollisionType
 {
 	NONE,
@@ -47,11 +49,14 @@ public:
 
 	void insideCollision(sf::Sprite& moving_sprite, const sf::FloatRect& static_sprite);
 
-	virtual sf::Vector2f outsideCollision(sf::Sprite& moving_sprite, const sf::FloatRect& static_sprite)
+	virtual sf::Vector2f outsideCollision(GameObject& moving_obj, const GameObject& static_obj)
 	{
-		sf::Vector2f offset = shortestOffset(moving_sprite.getGlobalBounds(), static_sprite);
+		sf::FloatRect r1 = moving_obj.getFloatRect();
+		sf::FloatRect r2 = static_obj.getFloatRect();
 
-		moving_sprite.move(offset);
+		sf::Vector2f offset = shortestOffset(r1,r2);
+
+		moving_obj.move(offset);
 
 		return offset;
 	}
@@ -73,12 +78,12 @@ private:
 		if (fabsf(size.x) <= fabsf(size.y))
 		{
 			offset = sf::Vector2f(size.x, 0);
-			offset *= rect_1.getCenter().x <= rect_2.getCenter().x ? -1.f : 1.f;
+			offset *= rect_1.position.x <= rect_2.position.x ? -1.f : 1.f;
 		}
 		else
 		{
 			offset = sf::Vector2f(0, size.y);
-			offset *= rect_1.getCenter().y <= rect_2.getCenter().y ? -1.f : 1.f;
+			offset *= rect_1.position.y <= rect_2.position.y ? -1.f : 1.f;
 		}
 
 		return offset;

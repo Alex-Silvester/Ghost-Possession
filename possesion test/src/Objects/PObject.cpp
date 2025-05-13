@@ -59,7 +59,7 @@ sf::Vector2f PObject::updateMovement(float dt)
 {
 	auto lerp = [](float a, float b, float t)->float {return a + (b - a) * t; };
 
-	m_sprite->setColor(sf::Color(
+	setColour(sf::Color(
 		lerp(102.f, 255.f, fabsf(std::cosf(m_flash_amount))), 
 		lerp(214.f, 255.f, fabsf(std::cosf(m_flash_amount))), 
 		255, 
@@ -67,15 +67,16 @@ sf::Vector2f PObject::updateMovement(float dt)
 
 	m_flash_amount = m_flash_amount >= 2 * PI ? m_flash_amount - 2 * PI : m_flash_amount + m_flash_speed;
 
-	m_sprite->move(m_velocity * dt);
+	move(m_velocity * dt);
 
-	return m_sprite->getGlobalBounds().getCenter();
+	//vertex array centre doesnt account for the object position
+	return m_vertex_array->getBounds().getCenter() + m_position;
 }
 
 void PObject::unpossess()
 {
 	IPossessable::unpossess();
 
-	m_sprite->setColor(sf::Color::White);
+	setColour(sf::Color::White);
 	m_velocity = { 0,0 };
 }

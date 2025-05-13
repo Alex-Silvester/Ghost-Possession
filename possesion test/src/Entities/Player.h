@@ -11,8 +11,6 @@ class Player : public GameObject, public IPhysicsObject
 public:
 	Player() = default;
 
-	Player(const sf::Texture& texture) : GameObject(texture) {}
-
 	~Player()
 	{
 		delete m_possessable_obj_ptr;
@@ -25,22 +23,12 @@ public:
 
 	void jump(float vel = 100.f);
 
-	void flip(int direction) 
-	{
-		if(direction / abs(direction) != m_sprite->getScale().x/fabsf(m_sprite->getScale().x))
-		{
-			m_sprite->setScale({ direction / abs(direction) * fabsf(m_sprite->getScale().x), m_sprite->getScale().y });
-			move(-direction / abs(direction) * m_sprite->getGlobalBounds().size.x, 0.f);
-		}
-	}
+	void flip(int direction);
 
 	void possess(IPossessable* possessable_obj);
 	void unpossess();
 
-	bool isPossessingObject()
-	{
-		return m_possessable_obj_ptr != nullptr;
-	}
+	bool isPossessingObject();
 
 	void keyPressed(const sf::Event& event);
 	void keyReleased(const sf::Event& event);
@@ -50,17 +38,7 @@ public:
 		return m_possessable_obj_ptr;
 	}
 
-	sf::Vector2f outsideCollision(sf::Sprite& moving_sprite, const sf::FloatRect& static_sprite) override
-	{
-		auto offset = IPhysicsObject::outsideCollision(moving_sprite, static_sprite);
-
-		if (offset.y < 0)
-		{
-			isGrounded();
-		}
-
-		return offset;
-	}
+	sf::Vector2f outsideCollision(GameObject& moving_sprite, const GameObject& static_sprite) override;
 
 private:
 
