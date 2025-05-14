@@ -7,6 +7,7 @@
 #include "../Tools/LevelTools.h"
 #include "State.h"
 
+#include <fstream>
 #include <iostream>
 
 class PlayGround : public State

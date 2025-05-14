@@ -43,11 +43,21 @@ bool PlayGround::init(std::shared_ptr<sf::RenderWindow> window)
 	m_boxes.back()->setPosition(0, 300);
 
 
-	auto test = lt::generateBlockData(4, 4);
+	auto test = lt::generateBlockMatrix(4, 4);
 
 	m_boxes.emplace_back(new Box());
 	m_boxes.back()->generateTexture(test, { 32,32 }, &m_box_texture);
 	m_boxes.back()->setPosition(400, 400);
+
+	std::vector<lt::BlockData> block_data = lt::readBlockData("Data/Levels/test_level.txt");
+
+
+	printf("%d %d %d %d %d\n",
+		block_data.back().width,
+		block_data.back().height,
+		block_data.back().position_x,
+		block_data.back().position_y,
+		block_data.back().block_type);
 
 	return true;
 }

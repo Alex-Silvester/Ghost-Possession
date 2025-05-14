@@ -1,10 +1,28 @@
 #pragma once
 
 #include <vector>
+#include <fstream>
+#include <sstream>
+
+#define BLOCK_DATA_POINTS 5
 
 namespace lt
 {
-	static std::vector<std::vector<unsigned int>> generateBlockData(unsigned int width, unsigned int height)
+	union BlockData
+	{
+		struct
+		{
+			int width;
+			int height;
+			int position_x;
+			int position_y;
+			int block_type;
+		};
+
+		int data[BLOCK_DATA_POINTS] = {};
+	};
+
+	static std::vector<std::vector<unsigned int>> generateBlockMatrix(unsigned int width, unsigned int height)
 	{
 		std::vector<std::vector<unsigned int>> data;
 
@@ -40,4 +58,27 @@ namespace lt
 		return data;
 	}
 
+	static std::vector<BlockData> readBlockData(std::string path)
+	{
+		std::ifstream file(path);
+		std::istringstream data;
+		std::string line;
+
+		std::vector<BlockData> data_vector;
+
+		while (std::getline(file, line))
+		{
+			data = std::istringstream(line);
+
+			data_vector.emplace_back();
+
+			for (int i = 0; i < BLOCK_DATA_POINTS; i++)
+			{
+				std::getline(data, line, ',');
+				data_vector.back().data[i] = std::stoi(line);
+			}
+		}
+
+		return data_vector;
+	}
 }
