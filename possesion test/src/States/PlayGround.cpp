@@ -37,7 +37,32 @@ void PlayGround::update(float dt)
 	{
 		for (auto& box : m_boxes)
 		{
+			//do the player's collision between them and all of the boxes
 			physicsCollision(m_player, *box);
+
+			//check if the current box is a possessable objext
+			if (!dynamic_cast<IPossessable*>(box))
+			{
+				continue;
+			}
+
+			sf::Vector2f size = { m_player.getPossessionDist(), m_player.getPossessionDist() };
+			sf::FloatRect possession_detector(m_player.getFloatRect().getCenter() - size / 2.f, size);
+
+			//if the box's type is PObject, check if the player's possession area collides
+			if (auto temp = dynamic_cast<PObject*>(box))
+			{
+				//if the players possession area collides, flash the box to indicate
+				if (temp->intersects(possession_detector))
+				{
+					temp->flash(sf::Color(255, 180, 150), 0.5f);
+				}
+				//otherwise reset the box's colour back to white
+				else
+				{
+					temp->resetFlash();
+				}
+			}
 		}
 	}
 	else if(PObject* obj = dynamic_cast<PObject*>(m_player.getPossessedObject()))
@@ -79,19 +104,24 @@ void PlayGround::keyPressed(const sf::Event& event)
 
 	if (event.getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::LControl)
 	{
-		if(!m_player.isPossessingObject())
-		{
-			for (auto& box : m_boxes)
-			{
-				if (auto temp = dynamic_cast<PObject*>(box))
-				{
-					m_player.possess(temp);
-				}
-			}
-		}
-		else
+		if(m_player.isPossessingObject())
 		{
 			m_player.unpossess();
+			return;
+		}
+		for (auto& box : m_boxes)
+		{
+			sf::Vector2f size = { m_player.getPossessionDist(), m_player.getPossessionDist() };
+			sf::FloatRect possession_detector(m_player.getFloatRect().getCenter() - size / 2.f, size);
+
+			if (!box->intersects(possession_detector))
+			{
+				continue;
+			}
+			if (auto temp = dynamic_cast<IPossessable*>(box))
+			{
+				m_player.possess(temp);
+			}
 		}
 	}
 	if (event.getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::F1)

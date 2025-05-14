@@ -6,6 +6,10 @@ void Player::init(sf::Vector2f gravity)
 	setGravity(gravity);
 
 	e_collision_type = CollisionType::OUTSIDE;
+
+#if DEBUG_P_RADIUS == true
+	possession_radius.setOrigin(possession_radius.getGlobalBounds().getCenter());
+#endif
 }
 
 void Player::update(float dt)
@@ -26,6 +30,10 @@ void Player::update(float dt)
 
 		move(m_velocity * dt);
 	}
+
+#if DEBUG_P_RADIUS == true
+	possession_radius.setPosition(getFloatRect().getCenter());
+#endif
 }
 
 void Player::jump(float vel)
@@ -120,4 +128,19 @@ sf::Vector2f Player::outsideCollision(GameObject& moving_sprite, const GameObjec
 		isGrounded();
 	}
 	return offset;
+}
+
+void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+#if DEBUG_P_RADIUS == true
+	target.draw(possession_radius);
+#endif
+
+	if (m_vertex_array.has_value())
+	{
+		states.transform.scale(m_scale);
+		states.transform.translate({ m_position.x / m_scale.x, m_position.y / m_scale.y });
+		states.texture = m_texture;
+		target.draw(m_vertex_array.value(), states);
+	}
 }

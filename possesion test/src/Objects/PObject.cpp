@@ -57,16 +57,7 @@ void PObject::keyReleased(const sf::Event& event)
 
 sf::Vector2f PObject::updateMovement(float dt)
 {
-	auto lerp = [](float a, float b, float t)->float {return a + (b - a) * t; };
-
-	setColour(sf::Color(
-		lerp(102.f, 255.f, fabsf(std::cosf(m_flash_amount))), 
-		lerp(214.f, 255.f, fabsf(std::cosf(m_flash_amount))), 
-		255, 
-		255));
-
-	m_flash_amount = m_flash_amount >= 2 * PI ? m_flash_amount - 2 * PI : m_flash_amount + m_flash_speed;
-
+	flash(sf::Color(102,214,255,255));
 	move(m_velocity * dt);
 
 	//vertex array centre doesnt account for the object position
@@ -77,6 +68,26 @@ void PObject::unpossess()
 {
 	IPossessable::unpossess();
 
-	setColour(sf::Color::White);
+	resetFlash();
 	m_velocity = { 0,0 };
+}
+
+void PObject::flash(sf::Color col_1, sf::Color col_2, float rate)
+{
+	rate *= m_flash_speed;
+
+	auto lerp = [](float a, float b, float t)->float {return a + (b - a) * t; };
+
+	setColour(sf::Color(
+		lerp(col_1.r, 255.f, fabsf(std::cosf(m_flash_amount))),
+		lerp(col_1.g, 255.f, fabsf(std::cosf(m_flash_amount))),
+		lerp(col_1.b, 255.f, fabsf(std::cosf(m_flash_amount))),
+		255));
+
+	m_flash_amount = m_flash_amount >= 2 * PI ? m_flash_amount - 2 * PI : m_flash_amount + rate;
+}
+
+void PObject::flash(sf::Color col_1, float rate)
+{
+	flash(col_1, sf::Color::White, rate);
 }

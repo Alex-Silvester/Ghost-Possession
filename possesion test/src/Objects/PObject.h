@@ -15,4 +15,8 @@ public:
 	sf::Vector2f updateMovement(float dt) override;
 
 	void unpossess() override;
+
+	void flash(sf::Color col_1, sf::Color col_2 = sf::Color::White, float rate = 1);
+	void flash(sf::Color col_1, float rate);
+	void resetFlash() { setColour(sf::Color::White); }
 };

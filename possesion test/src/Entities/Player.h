@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+#define DEBUG_P_RADIUS true;
+
 class Player : public GameObject, public IPhysicsObject
 {
 public:
@@ -14,6 +16,11 @@ public:
 	~Player()
 	{
 		delete m_possessable_obj_ptr;
+	}
+
+	Player& operator=(const Player& obj)
+	{
+		return *this;
 	}
 
 	void init(sf::Vector2f gravity);
@@ -40,6 +47,11 @@ public:
 
 	sf::Vector2f outsideCollision(GameObject& moving_sprite, const GameObject& static_sprite) override;
 
+	inline float getPossessionDist() const
+	{
+		return m_possession_radius;
+	}
+
 private:
 
 	IPossessable* m_possessable_obj_ptr = nullptr;
@@ -53,5 +65,12 @@ private:
 		bool D = false;
 		bool Space = false;
 	}keyHeld;
+
+	const float m_possession_radius = 200.f;
+
+#if DEBUG_P_RADIUS == true
+	sf::RectangleShape possession_radius = sf::RectangleShape({ m_possession_radius, m_possession_radius });
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+#endif
 
 };
