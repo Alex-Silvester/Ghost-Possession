@@ -18,9 +18,9 @@ public:
 
 	~PlayGround() 
 	{
-		int size = m_boxes.size();
+		size_t size = m_boxes.size();
 
-		for (int i = 0; i < size; i++)
+		for (size_t i = 0; i < size; i++)
 		{
 			delete m_boxes[i];
 		}

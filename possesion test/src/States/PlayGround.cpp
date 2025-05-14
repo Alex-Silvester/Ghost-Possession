@@ -22,42 +22,9 @@ bool PlayGround::init(std::shared_ptr<sf::RenderWindow> window)
 		return false;
 	}
 
-	//m_box_texture.setRepeated(true);
-
-	std::vector<std::vector<unsigned int>> possessed_block_data = { {0,1,2} , { 3,4,5 } , {6,7,8} };
-
-	m_boxes.emplace_back(new PObject());
-	m_boxes.back()->generateTexture(possessed_block_data, { 32,32 }, &m_box_texture);
-	m_boxes.back()->setPosition(300, 100);
-
-	std::vector<std::vector<unsigned int>> level_data =
-	{
-		{0,1,1,1,1,1,1,1,1,2},
-		{3,4,4,4,4,4,4,4,4,5},
-		{3,4,4,4,4,4,4,4,4,5},
-		{6,7,7,7,7,7,7,7,7,8}
-	};
-
-	m_boxes.emplace_back(new Box());
-	m_boxes.back()->generateTexture(level_data, { 32,32 }, &m_box_texture);
-	m_boxes.back()->setPosition(0, 300);
-
-
-	auto test = lt::generateBlockMatrix(4, 4);
-
-	m_boxes.emplace_back(new Box());
-	m_boxes.back()->generateTexture(test, { 32,32 }, &m_box_texture);
-	m_boxes.back()->setPosition(400, 400);
-
 	std::vector<lt::BlockData> block_data = lt::readBlockData("Data/Levels/test_level.txt");
 
-
-	printf("%d %d %d %d %d\n",
-		block_data.back().width,
-		block_data.back().height,
-		block_data.back().position_x,
-		block_data.back().position_y,
-		block_data.back().block_type);
+	m_boxes = lt::createBlockArray(block_data, &m_box_texture);
 
 	return true;
 }
@@ -83,7 +50,7 @@ void PlayGround::update(float dt)
 	}
 }
 
-#define PLAYER_POS_CHECK true
+#define PLAYER_POS_CHECK false
 void PlayGround::render()
 {
 #if PLAYER_POS_CHECK == false
