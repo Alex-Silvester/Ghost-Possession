@@ -23,10 +23,11 @@ set(SOURCE_FILES
 "src/Objects/PObject.cpp"
 "src/GameObject.cpp" 
 "src/Tools/LevelTools.h")
-add_executable(CMakeTarget ${SOURCE_FILES} "res.rc")
+
+add_executable(possession_test ${SOURCE_FILES} "res.rc")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET CMakeTarget PROPERTY CXX_STANDARD 20)
+  set_property(TARGET possession_test PROPERTY CXX_STANDARD 20)
 endif()
 
 include(FetchContent)
@@ -37,7 +38,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(SFML)
 
-target_link_libraries(CMakeTarget PRIVATE sfml-graphics sfml-window sfml-system sfml-network sfml-audio)
+target_link_libraries(possession_test PRIVATE sfml-graphics sfml-window sfml-system sfml-network sfml-audio)
 
 message("----------Current source directory----------")
 message(${CMAKE_CURRENT_SOURCE_DIR})
