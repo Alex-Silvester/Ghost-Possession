@@ -82,7 +82,7 @@ void Player::keyPressed(const sf::Event& event)
 	if (code == Key::Space && !keyHeld.Space)
 	{
 		keyHeld.Space = true;
-		jump(350.f);
+		jump(450.f);
 	}
 	if (code == Key::A && !keyHeld.A)
 	{
@@ -130,11 +130,10 @@ sf::Vector2f Player::outsideCollision(GameObject& moving_sprite, const GameObjec
 	return offset;
 }
 
+#if DEBUG_P_RADIUS == true
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-#if DEBUG_P_RADIUS == true
 	target.draw(possession_radius);
-#endif
 
 	if (m_vertex_array.has_value())
 	{
@@ -144,3 +143,4 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		target.draw(m_vertex_array.value(), states);
 	}
 }
+#endif

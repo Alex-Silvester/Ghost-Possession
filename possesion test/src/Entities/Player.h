@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#define DEBUG_P_RADIUS true;
+#define DEBUG_P_RADIUS false;
 
 class Player : public GameObject, public IPhysicsObject
 {

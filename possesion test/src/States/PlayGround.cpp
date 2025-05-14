@@ -55,7 +55,7 @@ void PlayGround::update(float dt)
 				//if the players possession area collides, flash the box to indicate
 				if (temp->intersects(possession_detector))
 				{
-					temp->flash(sf::Color(255, 180, 150), 0.5f);
+					temp->flash(sf::Color(255, 150, 100),1.3f);
 				}
 				//otherwise reset the box's colour back to white
 				else
@@ -121,6 +121,7 @@ void PlayGround::keyPressed(const sf::Event& event)
 			if (auto temp = dynamic_cast<IPossessable*>(box))
 			{
 				m_player.possess(temp);
+				break;
 			}
 		}
 	}
