@@ -20,8 +20,10 @@ set(SOURCE_FILES
 "src/constants.h" 
 "src/Interfaces/IPossessable.h" 
 "src/Objects/PObject.h" 
-"src/Objects/PObject.cpp" "src/GameObject.cpp" "src/Tools/LevelTools.h")
-add_executable(CMakeTarget ${SOURCE_FILES})
+"src/Objects/PObject.cpp"
+"src/GameObject.cpp" 
+"src/Tools/LevelTools.h")
+add_executable(CMakeTarget ${SOURCE_FILES} "res.rc")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET CMakeTarget PROPERTY CXX_STANDARD 20)
