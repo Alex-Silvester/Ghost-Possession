@@ -13,3 +13,4 @@ project ("Ghost Possession")
 
 # Include sub-projects.
 add_subdirectory ("possesion test")
+add_subdirectory ("Ghost Possession Game")

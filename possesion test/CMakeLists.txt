@@ -45,3 +45,5 @@ message(${CMAKE_CURRENT_SOURCE_DIR})
 message("----------Current source directory----------")
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/Data/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Data/)
+
+set(CMAKE_AUTORCC ON)
