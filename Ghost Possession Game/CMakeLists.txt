@@ -4,7 +4,7 @@ set(SOURCE_FILES
 "src/States/State.h"
 "src/States/States.h" 
 "src/Game.h"
-"src/Game.cpp" "src/States/Menu.h" "src/States/LevelSelect.h" "src/States/Menu.cpp")
+"src/Game.cpp" "src/States/Menu.h" "src/States/LevelSelect.h" "src/States/Menu.cpp"   "src/Tools/Objects/ScalingText.h")
 set(SUB_NAME The_Ghost_Possession)
 
 add_executable(${SUB_NAME} ${SOURCE_FILES})

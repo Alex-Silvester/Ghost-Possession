@@ -1,6 +1,7 @@
 #pragma once
 
 #include "State.h"
+#include "../Tools/Objects/ScalingText.h"
 
 class Menu : public State
 {
@@ -19,6 +20,5 @@ public:
 private:
 
 	sf::Font m_cormorant_Bold;
-	std::optional<sf::Text> m_game_name;
-
+	ScalingText m_game_name;
 };
