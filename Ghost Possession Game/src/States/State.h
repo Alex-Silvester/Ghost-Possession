@@ -5,8 +5,10 @@
 enum States
 {
 	NULL_STATE,
+	START,
 	MENU,
-	LEVEL_SELECT
+	LEVEL_SELECT,
+	PLAY
 };
 
 class State

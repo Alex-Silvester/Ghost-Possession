@@ -30,6 +30,8 @@ Game& Game::get()
 bool Game::init(unsigned int max_fps)
 {
 
+	if (!addState<Start>(States::START)) return false;
+	if (!addState<Play>(States::PLAY)) return false;
 	if (!addState<Menu>(States::MENU)) return false;
 	if (!addState<LevelSelect>(States::LEVEL_SELECT)) return false;
 

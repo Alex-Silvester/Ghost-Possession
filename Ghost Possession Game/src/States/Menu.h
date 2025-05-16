@@ -20,5 +20,5 @@ public:
 private:
 
 	sf::Font m_cormorant_Bold;
-	ScalingText m_game_name;
+	ScalingText m_return_text;
 };

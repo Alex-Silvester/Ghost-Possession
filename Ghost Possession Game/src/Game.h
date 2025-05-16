@@ -41,5 +41,5 @@ private:
 	std::shared_ptr<sf::RenderWindow> m_window = std::make_shared<sf::RenderWindow>(sf::VideoMode({ 1080,720 }), "The Ghost Possession");
 
 	std::unordered_map<States, std::unique_ptr<State>> m_states;
-	States m_current_state = MENU;
+	States m_current_state = START;
 };
