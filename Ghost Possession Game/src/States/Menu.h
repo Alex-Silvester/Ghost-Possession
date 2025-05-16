@@ -8,20 +8,17 @@ public:
 
 	Menu() : State(MENU) {}
 
-	void keyPressed(const sf::Keyboard::Key& key) override
-	{
-		using namespace sf::Keyboard;
-		if (key == Key::A)
-		{
-			m_current_state = States::LEVEL_SELECT;
-		}
-	}
+	bool init(std::shared_ptr<sf::RenderWindow> window) override;
+	void update(float dt) override;
+	void render() override;
 
-	void render() override
-	{
-		m_window->draw(sf::CircleShape(15.f));
-	}
+	void keyPressed(const sf::Keyboard::Key& key) override;
+
+	void mousePressed(const sf::Mouse::Button& button) override;
 
 private:
+
+	sf::Font m_cormorant_Bold;
+	std::optional<sf::Text> m_game_name;
 
 };

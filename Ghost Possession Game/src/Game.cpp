@@ -29,8 +29,9 @@ Game& Game::get()
 
 bool Game::init(unsigned int max_fps)
 {
-	addState<Menu>(States::MENU);
-	addState<LevelSelect>(States::LEVEL_SELECT);
+
+	if (!addState<Menu>(States::MENU)) return false;
+	if (!addState<LevelSelect>(States::LEVEL_SELECT)) return false;
 
 	m_window->setFramerateLimit(max_fps);
 	return true;

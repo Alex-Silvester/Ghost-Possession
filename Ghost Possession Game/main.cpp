@@ -8,6 +8,9 @@ int main()
 	if (!game.init())
 	{
 		printf("[ERROR] Game failed to initialise...\n");
+		game.end();
+		getchar();
+		return -1;
 	}
 	printf("[SUCCESS] Game initialised!\n");
 

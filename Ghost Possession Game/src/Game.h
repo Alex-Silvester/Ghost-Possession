@@ -28,10 +28,10 @@ private:
 	Game();
 
 	template<typename T>
-	void addState(States state)
+	bool addState(States state)
 	{
 		m_states.emplace(state, std::make_unique<T>());
-		m_states[state]->init(m_window);
+		return m_states[state]->init(m_window);
 	}
 
 private:
