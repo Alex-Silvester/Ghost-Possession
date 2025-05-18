@@ -52,7 +52,7 @@ void Start::mousePressed(const sf::Mouse::Button& key)
 	if (m_play_text.press(mouse_pos))
 	{
 		m_play_text.reset();
-		m_current_state = PLAY;
+		m_current_state = LEVEL_SELECT;
 	}
 
 	if (m_menu_text.press(mouse_pos))

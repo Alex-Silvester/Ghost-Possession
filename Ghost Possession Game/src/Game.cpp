@@ -35,6 +35,8 @@ bool Game::init(unsigned int max_fps)
 	if (!addState<Menu>(States::MENU)) return false;
 	if (!addState<LevelSelect>(States::LEVEL_SELECT)) return false;
 
+	dynamic_cast<LevelSelect*>(m_states[LEVEL_SELECT].get())->setLevelPtr(dynamic_cast<Play*>(m_states[PLAY].get())->getLevelPtr());
+
 	m_window->setFramerateLimit(max_fps);
 	return true;
 }

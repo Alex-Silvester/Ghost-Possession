@@ -2,6 +2,8 @@
 
 #include<SFML/Graphics.hpp>
 
+#include <functional>
+
 enum States
 {
 	NULL_STATE,

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <functional>
-
 #include "State.h"
 #include "../Tools/Objects/ScalingText.h"
 
