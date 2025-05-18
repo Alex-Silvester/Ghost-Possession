@@ -74,11 +74,6 @@ bool Game::run()
 			}
 			if (event->is<Event::KeyPressed>())
 			{
-				if (event->getIf<Event::KeyPressed>()->code == sf::Keyboard::Key::Escape)
-				{
-					m_window->close(); return true;
-				}
-
 				m_states[m_current_state]->keyPressed(event.value().getIf<Event::KeyPressed>()->code);
 			}
 			if (event->is<sf::Event::KeyReleased>())
