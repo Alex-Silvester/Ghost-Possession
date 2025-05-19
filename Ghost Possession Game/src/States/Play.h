@@ -2,8 +2,9 @@
 
 #include "State.h"
 #include "../Objects/GameObject.h"
-
 #include "../Tools/Level/LevelTools.h"
+
+#include "../Entities/Player.h"
 
 class Play : public State
 {
@@ -28,6 +29,9 @@ private:
 
 	std::shared_ptr<sf::Texture> m_box_texture = std::make_shared<sf::Texture>();
 	std::vector<GameObject*> m_boxes;
+
+	std::shared_ptr<sf::Texture> m_player_texture = std::make_shared<sf::Texture>();
+	Player m_player;
 
 	int m_level = 0;
 

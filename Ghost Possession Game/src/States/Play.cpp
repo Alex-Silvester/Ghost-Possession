@@ -19,6 +19,14 @@ bool Play::init(std::shared_ptr<sf::RenderWindow> window)
 		printf("[ERROR] failed to load texture: Play -> box texture\n");
 		return false;
 	}
+
+	if (!m_player_texture->loadFromFile("Data/Textures/Ghost.png"))
+	{
+		printf("[ERROR] failed to load texture: Play -> player texture\n");
+	}
+
+	m_player.init(m_player_texture, { 4.f,4.f });
+
 	return true;
 }
 
@@ -36,6 +44,8 @@ void Play::render()
 	{
 		m_window->draw(*box);
 	}
+
+	m_window->draw(m_player);
 }
 
 void Play::keyPressed(const sf::Keyboard::Key& key)
