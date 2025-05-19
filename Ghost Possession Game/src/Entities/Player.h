@@ -54,16 +54,31 @@ public:
 
 private:
 
+	void resetKeys()
+	{
+		for (auto& key : keyHeld.keys)
+		{
+			key = false;
+		}
+	}
+
+private:
+
 	IPossessable* m_possessable_obj_ptr = nullptr;
 	sf::Vector2f m_prev_position;
 
 	bool m_grounded = false;
 
-	struct KeyHeld
+	union KeyHeld
 	{
-		bool A = false;
-		bool D = false;
-		bool Space = false;
+		struct
+		{
+			bool A;
+			bool D;
+			bool Space;
+		}key;
+
+		bool keys[3] = {false, false, false};
 	}keyHeld;
 
 	const float m_possession_radius = 200.f;

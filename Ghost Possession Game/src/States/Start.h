@@ -13,6 +13,8 @@ public:
 	void update(float dt) override;
 	void render() override;
 
+	void keyPressed(const sf::Keyboard::Key& key) override;
+
 	void mousePressed(const sf::Mouse::Button& key) override;
 
 private:

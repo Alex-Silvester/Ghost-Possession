@@ -60,14 +60,20 @@ void Player::possess(IPossessable* possessable_obj)
 {
 	m_possessable_obj_ptr = possessable_obj;
 	m_prev_position = getPosition();
+	m_velocity = { 0,0 };
 	flip(1);
 }
 
 void Player::unpossess()
 {
-	m_possessable_obj_ptr->unpossess();
+	if(isPossessingObject())
+	{
+		m_possessable_obj_ptr->unpossess();
+	}
 	m_possessable_obj_ptr = nullptr;
 
+	resetKeys();
+	m_velocity = { 0,0 };
 	setPosition(m_prev_position);
 }
 
@@ -80,20 +86,20 @@ void Player::keyPressed(const sf::Keyboard::Key& key)
 {
 	using namespace sf::Keyboard;
 
-	if (key == Key::Space && !keyHeld.Space)
+	if (key == Key::Space && !keyHeld.key.Space)
 	{
-		keyHeld.Space = true;
+		keyHeld.key.Space = true;
 		jump(450.f);
 	}
-	if (key == Key::A && !keyHeld.A)
+	if (key == Key::A && !keyHeld.key.A)
 	{
-		keyHeld.A = true;
+		keyHeld.key.A = true;
 		addVelocity(-cst::s_player_speed, 0);
 		flip(-1);
 	}
-	if (key == Key::D && !keyHeld.D)
+	if (key == Key::D && !keyHeld.key.D)
 	{
-		keyHeld.D = true;
+		keyHeld.key.D = true;
 		addVelocity(cst::s_player_speed, 0);
 		flip(1);
 	}
@@ -103,19 +109,19 @@ void Player::keyReleased(const sf::Keyboard::Key& key)
 {
 	using namespace sf::Keyboard;
 
-	if (key == Key::A && keyHeld.A)
+	if (key == Key::A && keyHeld.key.A)
 	{
-		keyHeld.A = false;
+		keyHeld.key.A = false;
 		addVelocity(cst::s_player_speed, 0);
 	}
-	if (key == Key::D && keyHeld.D)
+	if (key == Key::D && keyHeld.key.D)
 	{
-		keyHeld.D = false;
+		keyHeld.key.D = false;
 		addVelocity(-cst::s_player_speed, 0);
 	}
-	if (key == Key::Space && keyHeld.Space)
+	if (key == Key::Space && keyHeld.key.Space)
 	{
-		keyHeld.Space = false;
+		keyHeld.key.Space = false;
 	}
 }
 

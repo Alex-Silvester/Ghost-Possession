@@ -61,7 +61,7 @@ void Play::update(float dt)
 				//if the players possession area collides, flash the box to indicate
 				if (temp->intersects(possession_detector))
 				{
-					temp->flash(sf::Color(255, 150, 100), 1.3f * dt);
+					temp->flash(sf::Color(255, 150, 100), cst::s_flash_rate * dt);
 				}
 				//otherwise reset the box's colour back to white
 				else
@@ -104,6 +104,7 @@ void Play::keyPressed(const sf::Keyboard::Key& key)
 	{
 		m_level = 0;
 
+		m_player.unpossess();
 		for (auto& box : m_boxes)
 		{
 			delete box;
@@ -111,6 +112,30 @@ void Play::keyPressed(const sf::Keyboard::Key& key)
 		m_boxes.clear();
 
 		m_current_state = LEVEL_SELECT;
+	}
+
+	if (key == Key::LControl)
+	{
+		if (m_player.isPossessingObject())
+		{
+			m_player.unpossess();
+			return;
+		}
+		for (auto& box : m_boxes)
+		{
+			sf::Vector2f size = { m_player.getPossessionDist(), m_player.getPossessionDist() };
+			sf::FloatRect possession_detector(m_player.getFloatRect().getCenter() - size / 2.f, size);
+
+			if (!box->intersects(possession_detector))
+			{
+				continue;
+			}
+			if (auto temp = dynamic_cast<IPossessable*>(box))
+			{
+				m_player.possess(temp);
+				break;
+			}
+		}
 	}
 }
 

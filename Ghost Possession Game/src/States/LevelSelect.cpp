@@ -81,8 +81,8 @@ void LevelSelect::keyPressed(const sf::Keyboard::Key& key)
 {
 	using namespace sf::Keyboard;
 
-	if (key == Key::A)
+	if (key == Key::Escape)
 	{
-		m_current_state = MENU;
+		m_current_state = START;
 	}
 }

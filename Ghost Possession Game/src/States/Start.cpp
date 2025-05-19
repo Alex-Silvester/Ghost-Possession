@@ -45,6 +45,16 @@ void Start::render()
 	m_window->draw(m_quit_text.getText().value());
 }
 
+void Start::keyPressed(const sf::Keyboard::Key& key)
+{
+	using namespace sf::Keyboard;
+
+	if (key == Key::Escape)
+	{
+		m_window->close();
+	}
+}
+
 void Start::mousePressed(const sf::Mouse::Button& key)
 {
 	sf::Vector2i mouse_pos = sf::Mouse::getPosition(*m_window);

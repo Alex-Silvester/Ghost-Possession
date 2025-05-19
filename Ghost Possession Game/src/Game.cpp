@@ -84,19 +84,22 @@ bool Game::run()
 				m_states[m_current_state]->mouseReleased(event.value().getIf<Event::MouseButtonReleased>()->button);
 		}
 
-		m_window->clear(sf::Color::Black);
-
-
-		m_states[m_current_state]->update(dt);
-
-		if (time_elapsed > 1.f)
+		if(m_window->isOpen())
 		{
-			time_elapsed -= 1.f;
-			//printf("\x1b[1A\x1b[2K%f %f %d\n", 1.f / dt, dt, updates);
-		}
-		m_states[m_current_state]->render();
+			m_window->clear(sf::Color::Black);
 
-		m_window->display();
+
+			m_states[m_current_state]->update(dt);
+
+			if (time_elapsed > 1.f)
+			{
+				time_elapsed -= 1.f;
+				//printf("\x1b[1A\x1b[2K%f %f %d\n", 1.f / dt, dt, updates);
+			}
+			m_states[m_current_state]->render();
+
+			m_window->display();
+		}
 	}
 
 	return true;
