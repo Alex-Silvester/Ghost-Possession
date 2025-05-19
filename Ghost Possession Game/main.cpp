@@ -5,7 +5,7 @@ int main()
 {
 	Game& game = Game::get();
 
-	if (!game.init())
+	if (!game.init(cst::s_max_fps))
 	{
 		printf("[ERROR] Game failed to initialise...\n");
 		game.end();

@@ -18,12 +18,15 @@ public:
 	void render() override;
 
 	void keyPressed(const sf::Keyboard::Key& key) override;
+	void keyReleased(const sf::Keyboard::Key& key) override;
 
 	int* getLevelPtr() { return &m_level; }
 
 private:
 
 	void reset();
+
+	void physicsCollision(Visual& moving_obj, const Visual& static_obj);
 
 private:
 

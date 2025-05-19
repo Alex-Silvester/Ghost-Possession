@@ -2,7 +2,7 @@
 
 #include <SFML/graphics.hpp>
 
-#include "../Objects/GameObject.h"
+#include "../Visual.h"
 
 enum CollisionType
 {
@@ -17,9 +17,9 @@ public:
 
 	IPhysicsObject() = default;
 
-	void updateGravity()
+	void updateGravity(float dt)
 	{
-		m_velocity += m_gravity;
+		m_velocity += m_gravity*dt;
 	}
 
 	void haltX() { m_velocity.x = 0; }
@@ -49,7 +49,7 @@ public:
 
 	void insideCollision(sf::Sprite& moving_sprite, const sf::FloatRect& static_sprite);
 
-	virtual sf::Vector2f outsideCollision(GameObject& moving_obj, const GameObject& static_obj)
+	virtual sf::Vector2f outsideCollision(Visual& moving_obj, const Visual& static_obj)
 	{
 		sf::FloatRect r1 = moving_obj.getFloatRect();
 		sf::FloatRect r2 = static_obj.getFloatRect();

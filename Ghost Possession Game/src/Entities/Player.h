@@ -45,7 +45,7 @@ public:
 		return m_possessable_obj_ptr;
 	}
 
-	sf::Vector2f outsideCollision(GameObject& moving_sprite, const GameObject& static_sprite) override;
+	sf::Vector2f outsideCollision(Visual& moving_sprite, const Visual& static_sprite) override;
 
 	inline float getPossessionDist() const
 	{

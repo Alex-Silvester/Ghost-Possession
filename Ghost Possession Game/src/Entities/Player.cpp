@@ -5,7 +5,7 @@ void Player::init(std::shared_ptr<sf::Texture>& texture, sf::Vector2f scale)
 {
 	GameEntity::init(texture, scale);
 
-	setGravity(0,cst::s_gravity);
+	setGravity({ 0,cst::s_gravity });
 
 	e_collision_type = CollisionType::OUTSIDE;
 
@@ -28,7 +28,7 @@ void Player::update(float dt)
 	}
 	else
 	{
-		updateGravity();
+		updateGravity(dt);
 
 		move(m_velocity * dt);
 	}
@@ -119,7 +119,7 @@ void Player::keyReleased(const sf::Keyboard::Key& key)
 	}
 }
 
-sf::Vector2f Player::outsideCollision(GameObject& moving_sprite, const GameObject& static_sprite)
+sf::Vector2f Player::outsideCollision(Visual& moving_sprite, const Visual& static_sprite)
 {
 	auto offset = IPhysicsObject::outsideCollision(moving_sprite, static_sprite);
 
