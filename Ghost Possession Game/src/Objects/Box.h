@@ -9,7 +9,7 @@ public:
 
 	Box() 
 	{
-		e_collision_type = CollisionType::OUTSIDE;
+
 	}
 
 private:

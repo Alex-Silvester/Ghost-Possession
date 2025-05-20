@@ -24,7 +24,7 @@ protected:
 		bool Space = false;
 	}keyHeld;
 
-#define PI 3.14
+#define PI 3.1415926f
 	float m_flash_amount = 0.f;
 	float m_flash_speed = 0.02f;
 };

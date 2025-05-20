@@ -7,8 +7,6 @@ void Player::init(std::shared_ptr<sf::Texture>& texture, sf::Vector2f scale)
 
 	setGravity({ 0,cst::s_gravity });
 
-	e_collision_type = CollisionType::OUTSIDE;
-
 #if DEBUG_P_RADIUS == true
 	possession_radius.setOrigin(possession_radius.getGlobalBounds().getCenter());
 #endif
