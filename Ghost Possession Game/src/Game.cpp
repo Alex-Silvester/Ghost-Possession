@@ -52,6 +52,7 @@ bool Game::run()
 
 	while (m_window->isOpen())
 	{
+		m_window->setView(m_window->getDefaultView());
 
 		float dt = clock.restart().asSeconds();
 		time_elapsed += dt;

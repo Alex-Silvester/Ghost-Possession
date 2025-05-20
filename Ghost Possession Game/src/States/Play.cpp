@@ -39,6 +39,8 @@ void Play::update(float dt)
 
 	m_player.update(dt);
 
+	m_window->setView(sf::View(m_player.getFloatRect().getCenter(), (sf::Vector2f)m_window->getSize()));
+
 	if (!m_player.isPossessingObject())
 	{
 		for (auto& box : m_boxes)
