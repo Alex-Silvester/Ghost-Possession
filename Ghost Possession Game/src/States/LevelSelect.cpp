@@ -11,7 +11,7 @@ bool LevelSelect::init(std::shared_ptr<sf::RenderWindow> window)
 		return false;
 	}
 
-	std::function<float(float)> func = [](float t)->float {return (1 - cosf(3.14159 * t)) / 2.f; };
+	std::function<float(float)> func = [](float t)->float {return (1 - cosf(3.14159f * t)) / 2.f; };
 
 	m_level_1_select = ScalingText(m_font, "Level 1", true);
 	m_level_1_select.setPosition((sf::Vector2i)m_window->getSize() / 2);

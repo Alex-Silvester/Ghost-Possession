@@ -84,7 +84,7 @@ public:
 
 	void setPosition(int x, int y)
 	{
-		m_text->setPosition(sf::Vector2f(x, y));
+		m_text->setPosition(static_cast<sf::Vector2f>(sf::Vector2i(x, y)));
 	}
 	void setPosition(sf::Vector2i vec)
 	{
