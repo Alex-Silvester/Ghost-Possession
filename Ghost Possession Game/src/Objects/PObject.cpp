@@ -76,12 +76,12 @@ void PObject::flash(sf::Color col_1, sf::Color col_2, float rate)
 {
 	rate *= m_flash_speed;
 
-	auto lerp = [](float a, float b, float t)->float {return a + (b - a) * t; };
+	auto lerp = [](std::uint8_t a, std::uint8_t b, float t)->std::uint8_t {return static_cast<std::uint8_t>(a + (b - a) * t); };
 
 	setColour(sf::Color(
-		lerp(col_1.r, 255.f, fabsf(std::cosf(m_flash_amount))),
-		lerp(col_1.g, 255.f, fabsf(std::cosf(m_flash_amount))),
-		lerp(col_1.b, 255.f, fabsf(std::cosf(m_flash_amount))),
+		lerp(col_1.r, col_2.r, fabsf(std::cosf(m_flash_amount))),
+		lerp(col_1.g, col_2.g, fabsf(std::cosf(m_flash_amount))),
+		lerp(col_1.b, col_2.b, fabsf(std::cosf(m_flash_amount))),
 		255));
 
 	m_flash_amount = m_flash_amount >= 2 * PI ? m_flash_amount - 2 * PI : m_flash_amount + rate;
