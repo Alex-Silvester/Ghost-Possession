@@ -1,4 +1,6 @@
-set(SOURCE_FILES "main.cpp")
+
+
+set(SOURCE_FILES "main.cpp" "src/Editor.h" "src/Editor.cpp" "src/Objects/Visual.cpp" "src/Objects/Visual.h" "src/Objects/Objects.h")
 set(SUB_NAME Ghost_Possession_Level_Editor)
 
 add_executable(${SUB_NAME} ${SOURCE_FILES})

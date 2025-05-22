@@ -3,21 +3,24 @@
 #include <fstream>
 #include <filesystem>
 
+#include "src/Editor.h"
+
 inline void wait() { while (getchar() != 'e') {} }
 
 int main()
 {
 	std::string input;
-	while (input != "1" && input != "2")
+	while (input != "1" && input != "2" && input != "skip")
 	{
-		printf("1. create new level\n2. edit existing file\n");
+		printf("1. create new level\n2. edit existing file\nskip: skip file\n");
 		std::cin >> input;
 	}
 
 	std::string name;
 
-	//crate/check the file
-	if (input == "1")
+	//create/check the file
+	if (input == "skip") { printf("Skipped\n"); }
+	else if (input == "1")
 	{
 		printf("Enter file name: ");
 		std::cin >> name;
@@ -41,6 +44,19 @@ int main()
 		}
 	}
 
-	wait();
+	Editor editor;
+
+	if (!editor.init())
+	{
+		printf("failed init\n");
+		editor.end();
+		wait();
+		return 0;
+	}
+
+	editor.run();
+
+	editor.end();
+
 	return 0;
 }
