@@ -103,7 +103,7 @@ void Editor::mousePressed(const sf::Mouse::Button& button)
 
 	if (button == Button::Left)
 	{
-		m_outline_rect.setPosition(mouse_pos);
+		m_outline_rect.setPosition(sf::Vector2f(floorf(mouse_pos.x/32.f), floorf(mouse_pos.y/32.f))*32.f);
 		mouse_held = true;
 	}
 
