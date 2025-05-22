@@ -42,6 +42,8 @@ void Visual::generateTexture(const DataMatrix& data, sf::Vector2u tile_size)
 {
 	m_vertex_array = sf::VertexArray(sf::PrimitiveType::Triangles);
 
+	size = sf::Vector2i( data.back().size(), data.size() );
+
 	for (int y = 0; y < data.size(); y++)
 	{
 		for (int x = 0; x < data[y].size(); x++)

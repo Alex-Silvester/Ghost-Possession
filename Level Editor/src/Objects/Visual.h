@@ -51,6 +51,10 @@ public:
 
 	void setType(unsigned int t) { m_type = t; }
 
+	sf::Vector2i getSize() { return size; }
+
+	unsigned int getType() { return m_type; }
+
 private:
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -63,4 +67,6 @@ private:
 	sf::Vector2f m_position = { 0,0 };
 	std::shared_ptr<sf::Texture> m_texture = nullptr;
 	sf::Vector2f m_scale = { 1,1 };
+
+	sf::Vector2i size = { 0,0 };
 };

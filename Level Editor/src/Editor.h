@@ -8,7 +8,7 @@ class Editor
 {
 public:
 
-	bool init();
+	bool init(std::string path);
 	void run();
 	void end();
 
@@ -35,5 +35,7 @@ private:
 	std::shared_ptr<sf::Texture> m_texture = std::make_shared<sf::Texture>(sf::Texture("Data/Stone Tile Map.png"));
 
 	bool mouse_held = false;
+
+	std::string m_path;
 
 };

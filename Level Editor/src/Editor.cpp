@@ -1,8 +1,10 @@
 
 #include "Editor.h"
 
-bool Editor::init()
+bool Editor::init(std::string path)
 {
+	m_path = path;
+
 	m_outline_rect.setFillColor(sf::Color(255, 255, 255, 90));
 	m_outline_rect.setOutlineColor(sf::Color::White);
 	m_outline_rect.setOutlineThickness(3.f);
@@ -57,8 +59,27 @@ void Editor::run()
 
 }
 
+#define DEBUG true
 void Editor::end()
 {
+#if DEBUG == false
+	if (path.length() == 0)
+	{
+		return;
+	}
+#endif
+
+	std::string data;
+	for (auto& block : blocks)
+	{
+		data = std::to_string((int)block.getPosition().x) + "," +
+			std::to_string((int)block.getPosition().y) + "," +
+			std::to_string(block.getSize().x) + "," +
+			std::to_string(block.getSize().y) + "," +
+			std::to_string(block.getType()) + "\n";
+
+		std::cout << data;
+	}
 }
 
 void Editor::update()

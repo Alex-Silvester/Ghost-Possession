@@ -46,7 +46,7 @@ int main()
 
 	Editor editor;
 
-	if (!editor.init())
+	if (!editor.init(name.length() == 0 ? "" : "Data/"+name+".txt"))
 	{
 		printf("failed init\n");
 		editor.end();
@@ -56,7 +56,9 @@ int main()
 
 	editor.run();
 
+	printf("Ending task...\n");
 	editor.end();
 
+	wait();
 	return 0;
 }
