@@ -59,15 +59,24 @@ void Editor::run()
 
 }
 
-#define DEBUG true
+#define DEBUG false
 void Editor::end()
 {
 #if DEBUG == false
-	if (path.length() == 0)
+	if (m_path.length() == 0)
 	{
 		return;
 	}
 #endif
+
+	printf("Saving file...\n");
+
+	if(std::filesystem::exists(m_path))
+	{
+		std::remove(m_path.c_str());
+	}
+
+	std::ofstream file(m_path);
 
 	std::string data;
 	for (auto& block : blocks)
@@ -78,7 +87,7 @@ void Editor::end()
 			std::to_string(block.getSize().y) + "," +
 			std::to_string(block.getType()) + "\n";
 
-		std::cout << data;
+		file << data;
 	}
 }
 

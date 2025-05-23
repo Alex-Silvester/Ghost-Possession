@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
 
 #include "Objects/Objects.h"
 
@@ -23,8 +24,6 @@ private:
 	void mouseReleased(const sf::Mouse::Button& button);
 
 private:
-
-	std::string path;
 	
 	sf::RenderWindow m_window = sf::RenderWindow(sf::VideoMode({ 720,540 }), "");
 
