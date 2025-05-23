@@ -86,7 +86,7 @@ void Editor::run()
 
 }
 
-#define DEBUG true
+#define DEBUG false
 void Editor::end()
 {
 	if (m_path.length() == 0)
@@ -111,10 +111,10 @@ void Editor::end()
 	std::string data;
 	for (auto& block : blocks)
 	{
-		data = std::to_string((int)block.getPosition().x) + "," +
-			std::to_string((int)block.getPosition().y) + "," +
-			std::to_string(block.getSize().x) + "," +
+			data = std::to_string(block.getSize().x) + "," +
 			std::to_string(block.getSize().y) + "," +
+		  std::to_string((int)block.getPosition().x) + "," +
+			std::to_string((int)block.getPosition().y) + "," +
 			std::to_string(block.getType()) + "\n";
 
 		file << data;
