@@ -6,8 +6,9 @@ class Visual : public sf::Drawable
 {
 public:
 
-	Visual(sf::Vector2f position, sf::Vector2i size, std::shared_ptr<sf::Texture> texture)
+	Visual(sf::Vector2f position, sf::Vector2i size, std::shared_ptr<sf::Texture> texture, int type = 0)
 	{
+		m_type = type;
 		m_texture = texture;
 		generateTexture(generateBlockMatrix(size.x, size.y), { 32,32 });
 		setPosition(position);

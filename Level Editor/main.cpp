@@ -34,6 +34,9 @@ int main()
 	}
 	else
 	{
+		printf("Enter file name: ");
+		std::cin >> name;
+
 		if (!std::filesystem::exists("Data/" + name + ".txt"))
 		{
 			std::cout << "[ERROR] file path doesn't exist : Data/" + name + ".txt\n";

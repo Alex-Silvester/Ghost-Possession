@@ -5,6 +5,27 @@ bool Editor::init(std::string path)
 {
 	m_path = path;
 
+	if (std::filesystem::exists(m_path))
+	{
+		std::vector<BlockData> data;
+
+		std::string line;
+		std::ifstream file(m_path);
+		while (std::getline(file, line))
+		{
+			data.emplace_back();
+
+			std::istringstream string = std::istringstream(line);
+			std::string chars;
+			for (int i = 0; i < BLOCK_DATA_POINTS; i++)
+			{
+				std::getline(string, chars, ',');
+				data.back().data[i] = std::stoi(chars);
+			}
+		}
+		createBlockArray(data);
+	}
+
 	m_outline_rect.setFillColor(sf::Color(255, 255, 255, 90));
 	m_outline_rect.setOutlineColor(sf::Color::White);
 	m_outline_rect.setOutlineThickness(3.f);
@@ -59,15 +80,18 @@ void Editor::run()
 
 }
 
-#define DEBUG false
+#define DEBUG true
 void Editor::end()
 {
-#if DEBUG == false
 	if (m_path.length() == 0)
 	{
 		return;
 	}
+
+#if DEBUG == true
+	return;
 #endif
+
 
 	printf("Saving file...\n");
 
@@ -149,4 +173,16 @@ void Editor::mouseReleased(const sf::Mouse::Button& button)
 	mouse_held = false;
 	m_outline_rect.setSize({ 0,0 });
 	m_outline_rect.setPosition({ -1,-1 });
+}
+
+void Editor::createBlockArray(const std::vector<BlockData>& block_data)
+{
+	for (auto& datum : block_data)
+	{
+		blocks.emplace_back(
+			sf::Vector2f(datum.position_x, datum.position_y), 
+			sf::Vector2i(datum.width, datum.height), 
+			m_texture,
+			datum.block_type);
+	}
 }

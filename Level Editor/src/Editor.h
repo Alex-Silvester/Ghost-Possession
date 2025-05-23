@@ -5,6 +5,21 @@
 
 #include "Objects/Objects.h"
 
+#define BLOCK_DATA_POINTS 5
+union BlockData
+{
+	struct
+	{
+		int width;
+		int height;
+		int position_x;
+		int position_y;
+		int block_type;
+	};
+
+	int data[BLOCK_DATA_POINTS] = {};
+};
+
 class Editor
 {
 public:
@@ -22,6 +37,8 @@ private:
 	void keyReleased  (const sf::Keyboard::Key& key);
 	void mousePressed (const sf::Mouse::Button& button);
 	void mouseReleased(const sf::Mouse::Button& button);
+
+	void createBlockArray(const std::vector<BlockData>& block_data);
 
 private:
 	
