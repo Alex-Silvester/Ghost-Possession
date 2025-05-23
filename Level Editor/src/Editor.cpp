@@ -128,7 +128,7 @@ void Editor::update()
 	if (mouse_held)
 	{
 		sf::Vector2f size = (mouse_pos - m_mouse_start) / 32.f;
-		size = { ceilf(size.x), ceilf(size.y) };
+		size = { (fabsf(size.x)/size.x)*ceilf(fabsf(size.x)), (fabsf(size.y) / size.y) * ceilf(fabsf(size.y)) };
 		size *= 32.f;
 
 		//check the cases for how the blocks are being created
@@ -139,18 +139,18 @@ void Editor::update()
 		}
 		else if(size.x < 0 && size.y < 0)
 		{
-			m_outline_rect.setPosition(m_mouse_start + size-sf::Vector2f(32,32));
-			m_outline_rect.setSize(sf::Vector2f(fabsf(size.x)+64, fabsf(size.y)+64));
+			m_outline_rect.setPosition(m_mouse_start + size);
+			m_outline_rect.setSize(sf::Vector2f(fabsf(size.x)+32, fabsf(size.y)+32));
 		}
 		else if (size.x < 0)
 		{
-			m_outline_rect.setPosition(m_mouse_start + sf::Vector2f(size.x-32, 0));
-			m_outline_rect.setSize(sf::Vector2f(fabsf(size.x)+64, size.y));
+			m_outline_rect.setPosition(m_mouse_start + sf::Vector2f(size.x, 0));
+			m_outline_rect.setSize(sf::Vector2f(fabsf(size.x)+32, size.y));
 		}
 		else if (size.y < 0)
 		{
-			m_outline_rect.setPosition(m_mouse_start + sf::Vector2f(0, size.y-32));
-			m_outline_rect.setSize(sf::Vector2f(size.x, fabsf(size.y)+64));
+			m_outline_rect.setPosition(m_mouse_start + sf::Vector2f(0, size.y));
+			m_outline_rect.setSize(sf::Vector2f(size.x, fabsf(size.y)+32));
 		}
 		
 		if (size.x == 0)
