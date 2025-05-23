@@ -121,12 +121,39 @@ void Editor::update()
 
 	if (mouse_held)
 	{
-		sf::Vector2f size = (mouse_pos - m_outline_rect.getPosition()) / 32.f;
+		sf::Vector2f size = (mouse_pos - m_mouse_start) / 32.f;
 		size = { ceilf(size.x), ceilf(size.y) };
 		size *= 32.f;
 
 		if(size.x >= 0 && size.y >= 0)
+		{
+			m_outline_rect.setPosition(m_mouse_start);
 			m_outline_rect.setSize(size);
+		}
+		else if(size.x < 0 && size.y < 0)
+		{
+			m_outline_rect.setPosition(m_mouse_start + size-sf::Vector2f(32,32));
+			m_outline_rect.setSize(sf::Vector2f(fabsf(size.x)+64, fabsf(size.y)+64));
+		}
+		else if (size.x < 0)
+		{
+			m_outline_rect.setPosition(m_mouse_start + sf::Vector2f(size.x-32, 0));
+			m_outline_rect.setSize(sf::Vector2f(fabsf(size.x)+64, size.y));
+		}
+		else if (size.y < 0)
+		{
+			m_outline_rect.setPosition(m_mouse_start + sf::Vector2f(0, size.y-32));
+			m_outline_rect.setSize(sf::Vector2f(size.x, fabsf(size.y)+64));
+		}
+		
+		if (size.x == 0)
+		{
+			m_outline_rect.setSize({ 32, m_outline_rect.getSize().y });
+		}
+		if (size.y == 0)
+		{
+			m_outline_rect.setSize({ m_outline_rect.getSize().x, 32 });
+		}
 	}
 
 }
@@ -158,6 +185,7 @@ void Editor::mousePressed(const sf::Mouse::Button& button)
 	if (button == Button::Left)
 	{
 		m_outline_rect.setPosition(sf::Vector2f(floorf(mouse_pos.x/32.f), floorf(mouse_pos.y/32.f))*32.f);
+		m_mouse_start = m_outline_rect.getPosition();
 		mouse_held = true;
 	}
 

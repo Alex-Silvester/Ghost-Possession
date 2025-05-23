@@ -54,4 +54,6 @@ private:
 
 	std::string m_path;
 
+	sf::Vector2f m_mouse_start;
+
 };
