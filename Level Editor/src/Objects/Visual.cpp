@@ -74,20 +74,20 @@ void Visual::generateTexture(const DataMatrix& data, sf::Vector2u tile_size)
 			vertices_2[1].texCoords = { (tex.x + 1) * (float)tile_size.x,  tex.y * (float)tile_size.y };
 			vertices_2[2].texCoords = { tex.x * (float)tile_size.x,  tex.y * (float)tile_size.y };
 
-			m_vertex_array->append(vertices_1[0]);
-			m_vertex_array->append(vertices_1[1]);
-			m_vertex_array->append(vertices_1[2]);
-
-			m_vertex_array->append(vertices_2[0]);
-			m_vertex_array->append(vertices_2[1]);
-			m_vertex_array->append(vertices_2[2]);
+			m_vertex_array.append(vertices_1[0]);
+			m_vertex_array.append(vertices_1[1]);
+			m_vertex_array.append(vertices_1[2]);
+										
+			m_vertex_array.append(vertices_2[0]);
+			m_vertex_array.append(vertices_2[1]);
+			m_vertex_array.append(vertices_2[2]);
 		}
 	}
 }
 
 bool Visual::intersects(const sf::FloatRect& rect)
 {
-	if (m_vertex_array.has_value())
+	if (m_vertex_array.getVertexCount() > 0)
 	{
 		if (getFloatRect().findIntersection(rect) == std::nullopt)
 		{
@@ -102,15 +102,15 @@ const sf::FloatRect& Visual::getFloatRect() const
 {
 	sf::Vector2f bounds =
 	{
-		m_vertex_array->getBounds().size.x * m_scale.x,
-		m_vertex_array->getBounds().size.y * m_scale.y
+		m_vertex_array.getBounds().size.x * m_scale.x,
+		m_vertex_array.getBounds().size.y * m_scale.y
 	};
 	return sf::FloatRect(m_position, bounds);
 }
 
 void Visual::setPosition(float x, float y)
 {
-	if (m_vertex_array.has_value())
+	if (m_vertex_array.getVertexCount() > 0)
 	{
 		m_position += sf::Vector2f(x, y);
 	}
@@ -118,7 +118,7 @@ void Visual::setPosition(float x, float y)
 
 void Visual::setPosition(sf::Vector2f vec)
 {
-	if (m_vertex_array.has_value())
+	if (m_vertex_array.getVertexCount() > 0)
 	{
 		m_position = vec;
 	}
@@ -126,12 +126,12 @@ void Visual::setPosition(sf::Vector2f vec)
 
 sf::Vector2f Visual::getPosition()
 {
-	return m_vertex_array.has_value() ? m_position : sf::Vector2f();
+	return m_vertex_array.getVertexCount() > 0 ? m_position : sf::Vector2f();
 }
 
 void Visual::move(float x, float y)
 {
-	if (m_vertex_array.has_value())
+	if (m_vertex_array.getVertexCount() > 0)
 	{
 		m_position += sf::Vector2f(x, y);
 	}
@@ -139,7 +139,7 @@ void Visual::move(float x, float y)
 
 void Visual::move(sf::Vector2f vec)
 {
-	if (m_vertex_array.has_value())
+	if (m_vertex_array.getVertexCount() > 0)
 	{
 		m_position += vec;
 	}
@@ -147,15 +147,15 @@ void Visual::move(sf::Vector2f vec)
 
 void Visual::setColour(sf::Color col)
 {
-	for (int i = 0; i < m_vertex_array->getVertexCount(); i++)
+	for (int i = 0; i < m_vertex_array.getVertexCount(); i++)
 	{
-		m_vertex_array.value()[i].color = col;
+		m_vertex_array[i].color = col;
 	}
 }
 
 sf::Color Visual::getColour()
 {
-	return m_vertex_array.value()[0].color;
+	return m_vertex_array[0].color;
 }
 
 void Visual::scale(float x, float y)
@@ -179,13 +179,18 @@ void Visual::setTransparancey(float alpha)
 
 void Visual::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	if (m_vertex_array.has_value())
+	if (m_vertex_array.getVertexCount() > 0)
 	{
 		states.transform.scale(m_scale);
 		states.transform.translate({ m_position.x / m_scale.x, m_position.y / m_scale.y });
 		states.texture = m_texture.get();
-		target.draw(m_vertex_array.value(), states);
+		target.draw(m_vertex_array, states);
 
 		target.draw(m_id_text.value());
+
+		if (m_draw_outline)
+		{
+			target.draw(rect);
+		}
 	}
 }

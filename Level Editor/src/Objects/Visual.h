@@ -6,6 +6,8 @@ class Visual : public sf::Drawable
 {
 public:
 
+	Visual() = default;
+
 	Visual(sf::Vector2f position, sf::Vector2i size, std::shared_ptr<sf::Texture> texture, std::shared_ptr<sf::Font> font, int type = 0)
 	{
 		m_type = type;
@@ -17,8 +19,17 @@ public:
 
 		m_id_text->setFillColor(sf::Color::Magenta);
 		m_id_text->setOrigin(m_id_text->getGlobalBounds().getCenter());
-		m_id_text->setPosition(m_vertex_array.value().getBounds().getCenter() + m_position);
+		m_id_text->setPosition(m_vertex_array.getBounds().getCenter() + m_position);
+
+		rect = sf::RectangleShape(m_vertex_array.getBounds().size);
+		rect.setPosition(m_position);
+		rect.setOutlineColor(sf::Color::White);
+		rect.setFillColor(sf::Color(255, 255, 255, 17));
+		rect.setOutlineThickness(3.f);
 	}
+
+	void select() { m_draw_outline = true; }
+	void unselect() { m_draw_outline = false; }
 
 	typedef std::vector<std::vector<unsigned int>> DataMatrix;
 	static DataMatrix generateBlockMatrix(unsigned int width, unsigned int height);
@@ -70,7 +81,7 @@ private:
 
 	unsigned int m_type = 0;
 
-	std::optional<sf::VertexArray> m_vertex_array;
+	sf::VertexArray m_vertex_array = sf::VertexArray(sf::PrimitiveType::Triangles);
 	sf::Vector2f m_position = { 0,0 };
 	std::shared_ptr<sf::Texture> m_texture = nullptr;
 	sf::Vector2f m_scale = { 1,1 };
@@ -78,4 +89,8 @@ private:
 	sf::Vector2i size = { 0,0 };
 
 	std::optional<sf::Text> m_id_text;
+
+	bool m_draw_outline = false;
+
+	sf::RectangleShape rect;
 };

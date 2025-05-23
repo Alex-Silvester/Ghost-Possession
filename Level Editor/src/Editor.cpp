@@ -185,6 +185,18 @@ void Editor::keyPressed(const sf::Keyboard::Key& key)
 	case Key::Num1: m_current_type = 1; break;
 	case Key::Num2: m_current_type = 2; break;
 	}
+
+	if (key == Key::Backspace && m_selected_visual != nullptr)
+	{
+		for (int i = 0; i < blocks.size(); i++)
+		{
+			if (&blocks[i] == m_selected_visual.get())
+			{
+				m_selected_visual.release();
+				blocks.erase(blocks.begin() + i);
+			}
+		}
+	}
 }
 
 void Editor::keyReleased(const sf::Keyboard::Key& key)
@@ -194,8 +206,25 @@ void Editor::keyReleased(const sf::Keyboard::Key& key)
 void Editor::mousePressed(const sf::Mouse::Button& button)
 {
 	using namespace sf::Mouse;
-
 	sf::Vector2f mouse_pos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_window));
+
+
+	if (m_selected_visual != nullptr)
+	{
+		m_selected_visual->unselect();
+		m_selected_visual.release();
+	}
+
+	for (auto& block : blocks)
+	{
+		if (block.getFloatRect().contains(mouse_pos))
+		{
+			m_selected_visual.reset(&block);
+			m_selected_visual->select();
+			return;
+		}
+	}
+
 
 	if (button == Button::Left)
 	{

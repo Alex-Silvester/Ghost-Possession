@@ -60,4 +60,6 @@ private:
 
 	std::shared_ptr<sf::Font> m_font = std::make_shared<sf::Font>();
 
+	std::unique_ptr<Visual> m_selected_visual = std::make_unique<Visual>();
+
 };
