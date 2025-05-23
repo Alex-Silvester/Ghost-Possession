@@ -185,5 +185,7 @@ void Visual::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		states.transform.translate({ m_position.x / m_scale.x, m_position.y / m_scale.y });
 		states.texture = m_texture.get();
 		target.draw(m_vertex_array.value(), states);
+
+		target.draw(m_id_text.value());
 	}
 }

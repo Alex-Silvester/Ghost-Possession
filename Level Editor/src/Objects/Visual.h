@@ -6,12 +6,18 @@ class Visual : public sf::Drawable
 {
 public:
 
-	Visual(sf::Vector2f position, sf::Vector2i size, std::shared_ptr<sf::Texture> texture, int type = 0)
+	Visual(sf::Vector2f position, sf::Vector2i size, std::shared_ptr<sf::Texture> texture, std::shared_ptr<sf::Font> font, int type = 0)
 	{
 		m_type = type;
 		m_texture = texture;
 		generateTexture(generateBlockMatrix(size.x, size.y), { 32,32 });
 		setPosition(position);
+
+		m_id_text = sf::Text(*font, std::to_string(type));
+
+		m_id_text->setFillColor(sf::Color::Magenta);
+		m_id_text->setOrigin(m_id_text->getGlobalBounds().getCenter());
+		m_id_text->setPosition(m_vertex_array.value().getBounds().getCenter() + m_position);
 	}
 
 	typedef std::vector<std::vector<unsigned int>> DataMatrix;
@@ -70,4 +76,6 @@ private:
 	sf::Vector2f m_scale = { 1,1 };
 
 	sf::Vector2i size = { 0,0 };
+
+	std::optional<sf::Text> m_id_text;
 };

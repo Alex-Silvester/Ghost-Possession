@@ -96,13 +96,11 @@ namespace lt
 			case 1: return new PObject();
 			default:break;
 		}
-		return new GameObject();
+		return new Box();
 	}
 
 	static std::vector<GameObject*> createBlockArray(const std::vector<BlockData>& block_data, std::shared_ptr<sf::Texture>& texture)
 	{
-		std::vector<GameObject*> object_type = { new Box(), new PObject() };
-
 		std::vector<GameObject*> objects;
 
 		for (auto& datum : block_data)

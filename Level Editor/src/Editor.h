@@ -56,4 +56,8 @@ private:
 
 	sf::Vector2f m_mouse_start;
 
+	unsigned int m_current_type = 0;
+
+	std::shared_ptr<sf::Font> m_font = std::make_shared<sf::Font>();
+
 };

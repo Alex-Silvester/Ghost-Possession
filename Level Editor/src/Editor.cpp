@@ -30,6 +30,12 @@ bool Editor::init(std::string path)
 	m_outline_rect.setOutlineColor(sf::Color::White);
 	m_outline_rect.setOutlineThickness(3.f);
 
+	if (!m_font->openFromFile("Data/Cormorant-Bold.ttf"))
+	{
+		printf("[ERROR] failed to get font\n");
+		return false;
+	}
+
 	return true;
 }
 
@@ -125,6 +131,7 @@ void Editor::update()
 		size = { ceilf(size.x), ceilf(size.y) };
 		size *= 32.f;
 
+		//check the cases for how the blocks are being created
 		if(size.x >= 0 && size.y >= 0)
 		{
 			m_outline_rect.setPosition(m_mouse_start);
@@ -170,6 +177,14 @@ void Editor::render()
 
 void Editor::keyPressed(const sf::Keyboard::Key& key)
 {
+	using namespace sf::Keyboard;
+
+	switch (key)
+	{
+	case Key::Num0: m_current_type = 0; break;
+	case Key::Num1: m_current_type = 1; break;
+	case Key::Num2: m_current_type = 2; break;
+	}
 }
 
 void Editor::keyReleased(const sf::Keyboard::Key& key)
@@ -195,7 +210,11 @@ void Editor::mouseReleased(const sf::Mouse::Button& button)
 {
 	if (mouse_held && m_outline_rect.getSize().x > 0 && m_outline_rect.getSize().y > 0)
 	{
-		blocks.emplace_back(m_outline_rect.getPosition(), (sf::Vector2i)m_outline_rect.getSize() / 32, m_texture);
+		blocks.emplace_back(
+			m_outline_rect.getPosition(), 
+			(sf::Vector2i)m_outline_rect.getSize() / 32, 
+			m_texture, m_font,
+			m_current_type);
 	}
 
 	mouse_held = false;
@@ -211,6 +230,7 @@ void Editor::createBlockArray(const std::vector<BlockData>& block_data)
 			sf::Vector2f(datum.position_x, datum.position_y), 
 			sf::Vector2i(datum.width, datum.height), 
 			m_texture,
+			m_font,
 			datum.block_type);
 	}
 }
