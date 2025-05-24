@@ -23,6 +23,8 @@ public:
 	//----------Position----------//
 
 	//----------Visuals----------//
+	void setTexture(std::shared_ptr<sf::Texture>& texture);
+
 	void setColour(sf::Color col);
 
 	sf::Color getColour();

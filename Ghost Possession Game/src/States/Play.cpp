@@ -14,6 +14,8 @@ bool Play::init(std::shared_ptr<sf::RenderWindow> window)
 {
 	m_window = window;
 
+	//should use a dictionary and going through the files like the 
+	// levels in level selection menu
 	if (!m_box_texture->loadFromFile("Data/Textures/Stone Tile Map.png"))
 	{
 		printf("[ERROR] failed to load texture: Play -> box texture\n");
@@ -25,7 +27,16 @@ bool Play::init(std::shared_ptr<sf::RenderWindow> window)
 		printf("[ERROR] failed to load texture: Play -> player texture\n");
 	}
 
+	if (!m_flag_texture->loadFromFile("Data/Textures/Small Flag.png"))
+	{
+		printf("[ERROR] failed to load texture: Play -> flag texture\n");
+	}
+
 	m_player.init(m_player_texture, { 4.f,4.f });
+
+	m_start.init(m_flag_texture, { 8,8 });
+
+	m_end.init(m_flag_texture, { 8,8 });
 
 	return true;
 }
@@ -34,7 +45,8 @@ void Play::update(float dt)
 {
 	if (m_boxes.size() == 0 && std::filesystem::exists("Data/Levels/Level_" + std::to_string(m_level) + ".txt"))
 	{
-		m_boxes = lt::createBlockArray(lt::readBlockData("Data/Levels/Level_"+std::to_string(m_level)+".txt"), m_box_texture);
+		m_boxes = lt::createBlockArray(lt::readBlockData("Data/Levels/Level_" + std::to_string(m_level) + ".txt"), m_box_texture, {&m_start, &m_end});
+		m_player.setPosition(m_start.getPosition());
 	}
 
 	m_player.update(dt);
@@ -89,6 +101,9 @@ void Play::render()
 	{
 		m_window->draw(*box);
 	}
+
+	m_window->draw(m_start);
+	m_window->draw(m_end);
 
 	m_window->draw(m_player);
 }

@@ -38,4 +38,12 @@ private:
 
 	int m_level = 0;
 
+	using StartFlag = GameEntity;
+	using EndFlag = GameEntity;
+
+	StartFlag m_start;
+	EndFlag m_end;
+
+	std::shared_ptr<sf::Texture> m_flag_texture = std::make_shared<sf::Texture>();
+
 };

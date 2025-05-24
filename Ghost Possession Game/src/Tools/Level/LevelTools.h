@@ -88,7 +88,7 @@ namespace lt
 		return data_vector;
 	}
 
-	static GameObject* getNewGameObject(int type)
+	static GameObject* getNewGameObject(char type)
 	{
 		switch (type)
 		{
@@ -99,17 +99,37 @@ namespace lt
 		return new Box();
 	}
 
-	static std::vector<GameObject*> createBlockArray(const std::vector<BlockData>& block_data, std::shared_ptr<sf::Texture>& texture)
+	//I know this isn't necessarily the best way to parse the level files
+	// but it works
+#define START_FLAG 0
+#define END_FLAG 1
+#define START_ID -1
+#define END_ID -2
+	static std::vector<GameObject*> createBlockArray(
+		const std::vector<BlockData>& block_data,
+		std::shared_ptr<sf::Texture>& block_texture,
+		std::array<Visual*, 2> flags)
 	{
 		std::vector<GameObject*> objects;
 
 		for (auto& datum : block_data)
 		{
+			if (datum.block_type == START_ID)
+			{
+				flags[START_FLAG]->setPosition( datum.position_x, datum.position_y );
+				continue;
+			}
+			if (datum.block_type == END_ID)
+			{
+				flags[END_FLAG]->setPosition( datum.position_x, datum.position_y );
+				continue;
+			}
+
 			objects.emplace_back(getNewGameObject(datum.block_type));
 
 			DataMatrix data_matrix = generateBlockMatrix(datum.width, datum.height);
 
-			objects.back()->generateTexture(data_matrix, { 32,32 }, texture);
+			objects.back()->generateTexture(data_matrix, { 32,32 }, block_texture);
 			objects.back()->setPosition((float)datum.position_x, (float)datum.position_y);
 		}
 

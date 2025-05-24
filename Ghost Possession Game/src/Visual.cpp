@@ -61,6 +61,11 @@ void Visual::move(sf::Vector2f vec)
 	}
 }
 
+void Visual::setTexture(std::shared_ptr<sf::Texture>& texture)
+{
+	m_texture = texture;
+}
+
 void Visual::setColour(sf::Color col)
 {
 	for (int i = 0; i < m_vertex_array->getVertexCount(); i++)
