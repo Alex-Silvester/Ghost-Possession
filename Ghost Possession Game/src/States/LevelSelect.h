@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 #include "../Tools/Objects/ScalingText.h"
 
 #include "State.h"
@@ -28,8 +30,7 @@ public:
 private:
 
 	sf::Font m_font;
-	ScalingText m_level_1_select;
-	ScalingText m_level_2_select;
+	std::vector<ScalingText> m_level_select_text;
 
 	ScalingText m_return_text;
 
