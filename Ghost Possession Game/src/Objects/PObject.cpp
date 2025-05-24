@@ -1,54 +1,52 @@
 
 #include "PObject.h"
 
-void PObject::keyPressed(const sf::Event& event)
+void PObject::keyPressed(const sf::Keyboard::Key& key)
 {
-	sf::Keyboard::Key code = event.getIf<sf::Event::KeyPressed>()->code;
 	using namespace sf::Keyboard;
 	
-	if (code == Key::D && !keyHeld.D)
+	if (key == Key::D && !keyHeld.D)
 	{
 		keyHeld.D = true;
 		m_velocity += {100.f, 0};
 	}
-	if (code == Key::A && !keyHeld.A)
+	if (key == Key::A && !keyHeld.A)
 	{
 		keyHeld.A = true;
 		m_velocity += {-100.f, 0};
 	}
-	if (code == Key::W && !keyHeld.W)
+	if (key == Key::W && !keyHeld.W)
 	{
 		keyHeld.W = true;
 		m_velocity += {0,-100.f};
 	}
-	if (code == Key::S && !keyHeld.S)
+	if (key == Key::S && !keyHeld.S)
 	{
 		keyHeld.S = true;
 		m_velocity += {0,100.f};
 	}
 }
 
-void PObject::keyReleased(const sf::Event& event)
+void PObject::keyReleased(const sf::Keyboard::Key& key)
 {
-	sf::Keyboard::Key code = event.getIf<sf::Event::KeyReleased>()->code;
 	using namespace sf::Keyboard;
 
-	if (code == Key::D && keyHeld.D)
+	if (key == Key::D && keyHeld.D)
 	{
 		keyHeld.D = false;
 		m_velocity += {-100.f, 0};
 	}
-	if (code == Key::A && keyHeld.A)
+	if (key == Key::A && keyHeld.A)
 	{
 		keyHeld.A = false;
 		m_velocity += {100.f, 0};
 	}
-	if (code == Key::W && keyHeld.W)
+	if (key == Key::W && keyHeld.W)
 	{
 		keyHeld.W = false;
 		m_velocity += {0, 100.f};
 	}
-	if (code == Key::S && keyHeld.S)
+	if (key == Key::S && keyHeld.S)
 	{
 		keyHeld.S = false;
 		m_velocity += {0, -100.f};

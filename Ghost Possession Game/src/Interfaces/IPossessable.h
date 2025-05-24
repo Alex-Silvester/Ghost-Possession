@@ -1,13 +1,12 @@
 #pragma once
 
-class IPossessable
+#include "IControllable.h"
+
+class IPossessable : public IControllable
 {
 public:
 
 	IPossessable() = default;
-
-	virtual void keyPressed(const sf::Event& event) {};
-	virtual void keyReleased(const sf::Event& event) {};
 
 	virtual sf::Vector2f updateMovement(float dt) { return sf::Vector2f(); };
 

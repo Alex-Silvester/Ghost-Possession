@@ -9,8 +9,8 @@ public:
 
 	PObject() = default;
 
-	void keyPressed(const sf::Event& event) override;
-	void keyReleased(const sf::Event& event) override;
+	void keyPressed(const sf::Keyboard::Key& event) override;
+	void keyReleased(const sf::Keyboard::Key& event) override;
 
 	sf::Vector2f updateMovement(float dt) override;
 

@@ -97,7 +97,11 @@ void Play::keyPressed(const sf::Keyboard::Key& key)
 {
 	using namespace sf::Keyboard;
 
-	if (!m_player.isPossessingObject())
+	if (m_player.isPossessingObject())
+	{
+		m_player.getPossessedObject()->keyPressed(key);
+	}
+	else
 	{
 		m_player.keyPressed(key);
 	}
@@ -143,7 +147,11 @@ void Play::keyPressed(const sf::Keyboard::Key& key)
 
 void Play::keyReleased(const sf::Keyboard::Key& key)
 {
-	if (!m_player.isPossessingObject())
+	if (m_player.isPossessingObject())
+	{
+		m_player.getPossessedObject()->keyReleased(key);
+	}
+	else
 	{
 		m_player.keyReleased(key);
 	}
