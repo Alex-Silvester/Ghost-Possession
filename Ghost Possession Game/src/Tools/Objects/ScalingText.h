@@ -63,6 +63,7 @@ public:
 	{
 		m_t = -0.f;
 		m_text->setScale((sf::Vector2f)m_default_scale);
+		m_text->setPosition(m_starting_position);
 	}
 
 	void update(std::shared_ptr<sf::RenderWindow>& window, float dt)
@@ -85,11 +86,17 @@ public:
 	void setPosition(int x, int y)
 	{
 		m_text->setPosition(static_cast<sf::Vector2f>(sf::Vector2i(x, y)));
+		m_starting_position = m_text->getPosition();
 	}
 	void setPosition(sf::Vector2i vec)
 	{
 		m_text->setPosition((sf::Vector2f)vec);
+		m_starting_position = m_text->getPosition();
 	}
+
+	sf::Vector2f getPosition() { return m_text->getPosition(); }
+
+	void move(sf::Vector2f vec) { m_text->move(vec); }
 
 private:
 
@@ -121,4 +128,6 @@ private:
 	float m_t = 0.f;
 
 	std::function<float(float)> m_scaling_function = [](float t)->float {return t; };
+
+	sf::Vector2f m_starting_position = { 0.f,0.f };
 };

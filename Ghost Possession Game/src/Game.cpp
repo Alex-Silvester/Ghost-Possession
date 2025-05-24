@@ -75,14 +75,16 @@ bool Game::run()
 			}
 			if (event->is<Event::KeyPressed>())
 			{
-				m_states[m_current_state]->keyPressed(event.value().getIf<Event::KeyPressed>()->code);
+				m_states[m_current_state]->keyPressed(event->getIf<Event::KeyPressed>()->code);
 			}
-			if (event->is<sf::Event::KeyReleased>())
-				m_states[m_current_state]->keyReleased(event.value().getIf<Event::KeyReleased>()->code);
-			if (event->is<sf::Event::MouseButtonPressed>())
-				m_states[m_current_state]->mousePressed(event.value().getIf<Event::MouseButtonPressed>()->button);
-			if (event->is<sf::Event::MouseButtonReleased>())
-				m_states[m_current_state]->mouseReleased(event.value().getIf<Event::MouseButtonReleased>()->button);
+			if (event->is<Event::KeyReleased>())
+				m_states[m_current_state]->keyReleased(event->getIf<Event::KeyReleased>()->code);
+			if (event->is<Event::MouseButtonPressed>())
+				m_states[m_current_state]->mousePressed(event->getIf<Event::MouseButtonPressed>()->button);
+			if (event->is<Event::MouseButtonReleased>())
+				m_states[m_current_state]->mouseReleased(event->getIf<Event::MouseButtonReleased>()->button);
+			if (event->is<Event::MouseWheelScrolled>())
+				m_states[m_current_state]->wheelScrolled(*event->getIf<Event::MouseWheelScrolled>());
 		}
 
 		if(m_window->isOpen())

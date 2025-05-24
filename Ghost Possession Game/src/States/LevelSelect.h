@@ -25,6 +25,8 @@ public:
 
 	void keyPressed(const sf::Keyboard::Key& key) override;
 
+	void wheelScrolled(const sf::Event::MouseWheelScrolled& wheel) override;
+
 	void setLevelPtr(int* lvl) { level_ptr = lvl; }
 
 private:
@@ -35,5 +37,7 @@ private:
 	ScalingText m_return_text;
 
 	int* level_ptr = nullptr;
+
+	float m_default_text_height = 0.f;
 
 };

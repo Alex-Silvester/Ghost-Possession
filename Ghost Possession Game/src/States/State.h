@@ -34,6 +34,8 @@ public:
 	virtual void mousePressed(const sf::Mouse::Button& event) {}
 	virtual void mouseReleased(const sf::Mouse::Button& event) {}
 
+	virtual void wheelScrolled(const sf::Event::MouseWheelScrolled& event) {}
+
 	virtual void keyPressed(const sf::Keyboard::Key& event) {}
 	virtual void keyReleased(const sf::Keyboard::Key& event) {}
 

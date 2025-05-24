@@ -20,6 +20,7 @@ bool LevelSelect::init(std::shared_ptr<sf::RenderWindow> window)
 
 	//go through all of the paths in the levels folder and create a piece of text
 	//that will load that level when pressed
+	m_default_text_height = m_window->getSize().y / 2;
 	int idx = 0;
 	std::string path = "Data/Levels";
 	for (const auto& entry : std::filesystem::directory_iterator(path))
@@ -68,22 +69,31 @@ void LevelSelect::mousePressed(const sf::Mouse::Button& button)
 	{
 		//go through all of the levels on screen and if one is pressed, go to that level
 		//(current standart level naming requires the "name" to be a number, might change later)
-		int idx = 1;
-		for (auto& level_text : m_level_select_text)
+		int idx = 0;
+		for (ScalingText& level_text : m_level_select_text)
 		{
-			if (level_text.getText()->getGlobalBounds().contains(mouse_position))
-			{
-				*level_ptr = idx;
-				level_text.reset();
-				m_current_state = PLAY;
-			}
 			idx++;
+			if (!level_text.getText()->getGlobalBounds().contains(mouse_position))
+			{
+				continue;
+			}
+			*level_ptr = idx;
+			for (ScalingText& text : m_level_select_text)
+			{
+				text.reset();
+			}
+			m_current_state = PLAY;
 		}
 
 		if (m_return_text.getText()->getGlobalBounds().contains(mouse_position))
 		{
 			m_return_text.reset();
 			m_current_state = START;
+
+			for (ScalingText& text : m_level_select_text)
+			{
+				text.move({ 0,m_default_text_height - text.getPosition().y });
+			}
 		}
 	}
 }
@@ -95,5 +105,27 @@ void LevelSelect::keyPressed(const sf::Keyboard::Key& key)
 	if (key == Key::Escape)
 	{
 		m_current_state = START;
+		for (ScalingText& text : m_level_select_text)
+		{
+			text.reset();
+		}
+	}
+}
+
+void LevelSelect::wheelScrolled(const sf::Event::MouseWheelScrolled& wheel)
+{
+	if (wheel.delta > 0 && m_level_select_text[0].getPosition().y < m_default_text_height)
+	{
+		for (ScalingText& text : m_level_select_text)
+		{
+			text.move({ 0,5 });
+		}
+	}
+	else if (wheel.delta <= 0)
+	{
+		for (ScalingText& text : m_level_select_text)
+		{
+			text.move({ 0,-5 });
+		}
 	}
 }
