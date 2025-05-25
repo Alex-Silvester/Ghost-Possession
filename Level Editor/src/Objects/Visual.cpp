@@ -114,6 +114,13 @@ void Visual::setPosition(float x, float y)
 	{
 		m_position += sf::Vector2f(x, y);
 	}
+
+	if (m_id_text.has_value())
+	{
+		m_id_text->setPosition(m_vertex_array.getBounds().getCenter() + m_position);
+	}
+
+	m_select_rect.setPosition({ x,y });
 }
 
 void Visual::setPosition(sf::Vector2f vec)
@@ -122,6 +129,13 @@ void Visual::setPosition(sf::Vector2f vec)
 	{
 		m_position = vec;
 	}
+
+	if (m_id_text.has_value())
+	{
+		m_id_text->setPosition(m_vertex_array.getBounds().getCenter() + m_position);
+	}
+
+	m_select_rect.setPosition(vec);
 }
 
 sf::Vector2f Visual::getPosition()
@@ -135,6 +149,13 @@ void Visual::move(float x, float y)
 	{
 		m_position += sf::Vector2f(x, y);
 	}
+
+	if (m_id_text.has_value())
+	{
+		m_id_text->move({ x, y });
+	}
+
+	m_select_rect.move({ x,y });
 }
 
 void Visual::move(sf::Vector2f vec)
@@ -143,6 +164,13 @@ void Visual::move(sf::Vector2f vec)
 	{
 		m_position += vec;
 	}
+
+	if (m_id_text.has_value())
+	{
+		m_id_text->move(vec);
+	}
+
+	m_select_rect.move(vec);
 }
 
 void Visual::setColour(sf::Color col)
@@ -190,7 +218,7 @@ void Visual::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 		if (m_draw_outline)
 		{
-			target.draw(rect);
+			target.draw(m_select_rect);
 		}
 	}
 }

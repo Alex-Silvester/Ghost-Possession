@@ -62,4 +62,6 @@ private:
 
 	std::unique_ptr<Visual> m_selected_visual = std::make_unique<Visual>();
 
+	bool m_move_select = false;
+
 };

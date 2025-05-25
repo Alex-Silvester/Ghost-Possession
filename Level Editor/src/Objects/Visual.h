@@ -21,11 +21,11 @@ public:
 		m_id_text->setOrigin(m_id_text->getGlobalBounds().getCenter());
 		m_id_text->setPosition(m_vertex_array.getBounds().getCenter() + m_position);
 
-		rect = sf::RectangleShape(m_vertex_array.getBounds().size);
-		rect.setPosition(m_position);
-		rect.setOutlineColor(sf::Color::White);
-		rect.setFillColor(sf::Color(255, 255, 255, 17));
-		rect.setOutlineThickness(3.f);
+		m_select_rect = sf::RectangleShape(m_vertex_array.getBounds().size);
+		m_select_rect.setPosition(m_position);
+		m_select_rect.setOutlineColor(sf::Color::White);
+		m_select_rect.setFillColor(sf::Color(255, 255, 255, 17));
+		m_select_rect.setOutlineThickness(3.f);
 	}
 
 	void select() { m_draw_outline = true; }
@@ -92,5 +92,5 @@ private:
 
 	bool m_draw_outline = false;
 
-	sf::RectangleShape rect;
+	sf::RectangleShape m_select_rect;
 };

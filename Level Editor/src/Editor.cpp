@@ -125,7 +125,17 @@ void Editor::update()
 {
 	sf::Vector2f mouse_pos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_window));
 
-	if (mouse_held)
+	if (m_move_select)
+	{
+		sf::Vector2f offset = mouse_pos - m_mouse_start;
+		offset = { floorf(offset.x / 32.f), floorf(offset.y / 32.f) };
+		offset *= 32.f;
+
+		m_selected_visual->move(offset);
+		m_mouse_start += offset;
+
+	}
+	else if (mouse_held)
 	{
 		sf::Vector2f size = (mouse_pos - m_mouse_start) / 32.f;
 		size = { (fabsf(size.x)/size.x)*ceilf(fabsf(size.x)), (fabsf(size.y) / size.y) * ceilf(fabsf(size.y)) };
@@ -211,6 +221,16 @@ void Editor::mousePressed(const sf::Mouse::Button& button)
 
 	if (m_selected_visual != nullptr)
 	{
+		for (Visual& block : blocks)
+		{
+			if (block.getFloatRect().contains(mouse_pos) && m_selected_visual.get() == &block)
+			{
+				m_move_select = true;
+				m_mouse_start = mouse_pos;
+				return;
+			}
+		}
+
 		m_selected_visual->unselect();
 		m_selected_visual.release();
 	}
@@ -247,6 +267,7 @@ void Editor::mouseReleased(const sf::Mouse::Button& button)
 	}
 
 	mouse_held = false;
+	m_move_select = false;
 	m_outline_rect.setSize({ 0,0 });
 	m_outline_rect.setPosition({ -1,-1 });
 }
