@@ -46,9 +46,13 @@ private:
 
 	std::vector<Visual> blocks;
 
+	//Visual m_start_flag;
+	//Visual m_end_flag;
+
 	sf::RectangleShape m_outline_rect;
 
-	std::shared_ptr<sf::Texture> m_texture = std::make_shared<sf::Texture>(sf::Texture("Data/Stone Tile Map.png"));
+	std::shared_ptr<sf::Texture> m_texture = std::make_shared<sf::Texture>("Data/Stone Tile Map.png");
+	std::shared_ptr<sf::Texture> m_flag_texture = std::make_shared<sf::Texture>("Data/Small Flag.png");
 
 	bool mouse_held = false;
 

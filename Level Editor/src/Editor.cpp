@@ -36,6 +36,17 @@ bool Editor::init(std::string path)
 		return false;
 	}
 
+	blocks.emplace_back();
+	blocks.back().makeSprite(m_flag_texture, m_font);
+	blocks.back().scale({ 4,4 });
+	blocks.back().setType(-1);
+
+	blocks.emplace_back();
+	blocks.back().makeSprite(m_flag_texture, m_font);
+	blocks.back().scale({ 4,4 });
+	blocks.back().setType(-2);
+	blocks.back().setPosition(0, 32);
+
 	return true;
 }
 

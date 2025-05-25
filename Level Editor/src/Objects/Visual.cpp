@@ -42,6 +42,16 @@ void Visual::generateTexture(const DataMatrix& data, sf::Vector2u tile_size)
 {
 	m_vertex_array = sf::VertexArray(sf::PrimitiveType::Triangles);
 
+	if (tile_size.x > m_texture->getSize().x)
+	{
+		tile_size.x = m_texture->getSize().x;
+	}
+
+	if (tile_size.y > m_texture->getSize().y)
+	{
+		tile_size.y = m_texture->getSize().y;
+	}
+
 	size = sf::Vector2i( data.back().size(), data.size() );
 
 	for (int y = 0; y < data.size(); y++)
@@ -214,7 +224,8 @@ void Visual::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		states.texture = m_texture.get();
 		target.draw(m_vertex_array, states);
 
-		target.draw(m_id_text.value());
+		if(m_id_text.has_value())
+			target.draw(m_id_text.value());
 
 		if (m_draw_outline)
 		{

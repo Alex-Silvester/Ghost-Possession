@@ -15,7 +15,11 @@ public:
 		generateTexture(generateBlockMatrix(size.x, size.y), { 32,32 });
 		setPosition(position);
 
-		m_id_text = sf::Text(*font, std::to_string(type));
+		std::string type_str;
+		if (type >= 0) { type_str = std::to_string(type); }
+		else if (type == -1) { type_str = "s"; }
+		else { type_str = "e"; }
+		m_id_text = sf::Text(*font, type_str);
 
 		m_id_text->setFillColor(sf::Color::Magenta);
 		m_id_text->setOrigin(m_id_text->getGlobalBounds().getCenter());
@@ -35,6 +39,38 @@ public:
 	static DataMatrix generateBlockMatrix(unsigned int width, unsigned int height);
 
 	void generateTexture(const DataMatrix& data, sf::Vector2u tile_size);
+
+	void makeSprite(std::shared_ptr<sf::Texture>& texture, std::shared_ptr<sf::Font> font)
+	{
+		m_texture = texture;
+		
+		sf::Vector2f size = (sf::Vector2f)texture->getSize();
+		sf::Vertex vert;
+		
+		m_vertex_array.append(vert);
+
+		vert.position =  { 0,size.y };
+		vert.texCoords = { 0,size.y };
+		m_vertex_array.append(vert);
+
+		vert.position =  { size.x,size.y };
+		vert.texCoords = { size.x,size.y };
+		m_vertex_array.append(vert);
+
+		vert.position =  { size.x, size.y };
+		vert.texCoords = { size.x, size.y };
+		m_vertex_array.append(vert);
+
+		vert.position =  { size.x, 0 };
+		vert.texCoords = { size.x, 0 };
+		m_vertex_array.append(vert);
+
+		vert.position =  { 0,0 };
+		vert.texCoords = { 0,0 };
+		m_vertex_array.append(vert);
+
+		m_id_text = sf::Text(*font);
+	}
 
 	bool intersects(const sf::FloatRect& rect);
 
@@ -67,11 +103,22 @@ public:
 
 	//----------Visuals----------//
 
-	void setType(unsigned int t) { m_type = t; }
+	void setType(int t)
+	{
+		m_type = t; 
+		std::string type_str;
+		if (m_type >= 0) { type_str = std::to_string(m_type); }
+		else if (m_type == -1) { type_str = "s"; }
+		else { type_str = "e"; }
+		m_id_text->setString(type_str);
+		m_id_text->setFillColor(sf::Color::Magenta);
+		m_id_text->setOrigin(m_id_text->getGlobalBounds().getCenter());
+		m_id_text->setPosition(m_vertex_array.getBounds().getCenter() + m_position);
+	}
 
 	sf::Vector2i getSize() { return size; }
 
-	unsigned int getType() { return m_type; }
+	int getType() { return m_type; }
 
 private:
 
@@ -79,7 +126,7 @@ private:
 
 private:
 
-	unsigned int m_type = 0;
+	int m_type = 0;
 
 	sf::VertexArray m_vertex_array = sf::VertexArray(sf::PrimitiveType::Triangles);
 	sf::Vector2f m_position = { 0,0 };
