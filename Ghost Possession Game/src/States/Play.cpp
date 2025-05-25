@@ -97,15 +97,15 @@ void Play::update(float dt)
 
 void Play::render()
 {
-	for (auto& box : m_boxes)
-	{
-		m_window->draw(*box);
-	}
-
 	m_window->draw(m_start);
 	m_window->draw(m_end);
 
 	m_window->draw(m_player);
+	
+	for (auto& box : m_boxes)
+	{
+		m_window->draw(*box);
+	}
 }
 
 void Play::keyPressed(const sf::Keyboard::Key& key)
