@@ -213,6 +213,8 @@ void Play::reset()
 	}
 	m_boxes.clear();
 
+	m_player.flip(1);
+
 	m_start.reset();
 	m_end.reset();
 }
