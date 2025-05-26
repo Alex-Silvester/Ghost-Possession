@@ -10,7 +10,8 @@ enum States
 	START,
 	MENU,
 	LEVEL_SELECT,
-	PLAY
+	PLAY,
+	WIN
 };
 
 class State

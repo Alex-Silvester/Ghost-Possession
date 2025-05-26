@@ -34,19 +34,29 @@ bool Play::init(std::shared_ptr<sf::RenderWindow> window)
 
 	m_player.init(m_player_texture, { 4.f,4.f });
 
-	m_start.init(m_flag_texture, { 8,8 });
-
-	m_end.init(m_flag_texture, { 8,8 });
-
 	return true;
 }
 
 void Play::update(float dt)
 {
+	if (m_current_state != PLAY)
+	{
+		return;
+	}
+
 	if (m_boxes.size() == 0 && std::filesystem::exists("Data/Levels/Level_" + std::to_string(m_level) + ".txt"))
 	{
-		m_boxes = lt::createBlockArray(lt::readBlockData("Data/Levels/Level_" + std::to_string(m_level) + ".txt"), m_box_texture, {&m_start, &m_end});
-		m_player.setPosition(m_start.getPosition());
+		m_start.emplace();
+		m_end.emplace();
+
+		m_start->init(m_flag_texture, { 8,8 });
+		m_end->init(m_flag_texture, { 8,8 });
+
+		m_boxes = lt::createBlockArray(
+			lt::readBlockData("Data/Levels/Level_" + std::to_string(m_level) + ".txt"),
+			m_box_texture, {&m_start.value(), &m_end.value()});
+
+		m_player.setPosition(m_start->getPosition());
 	}
 
 	m_player.update(dt);
@@ -55,6 +65,14 @@ void Play::update(float dt)
 
 	if (!m_player.isPossessingObject())
 	{
+		//if the player is intersecting with the end flag, they win
+		if (m_player.intersects(m_end->getFloatRect()))
+		{
+			reset();
+			m_current_state = WIN;
+			return;
+		}
+
 		for (auto& box : m_boxes)
 		{
 			//do the player's collision between them and all of the boxes
@@ -87,6 +105,14 @@ void Play::update(float dt)
 	}
 	else if (PObject* obj = dynamic_cast<PObject*>(m_player.getPossessedObject()))
 	{
+		//if the object the player is possessing is intersecting the end flag,
+		// they win
+		if (obj->intersects(m_end->getFloatRect()))
+		{
+			reset();
+			m_current_state = WIN;
+			return;
+		}
 		for (auto& box : m_boxes)
 		{
 			if (obj != box)
@@ -97,8 +123,14 @@ void Play::update(float dt)
 
 void Play::render()
 {
-	m_window->draw(m_start);
-	m_window->draw(m_end);
+	if(m_start.has_value())
+	{
+		m_window->draw(m_start.value());
+	}
+	if(m_end.has_value())
+	{
+		m_window->draw(m_end.value());
+	}
 
 	m_window->draw(m_player);
 	
@@ -123,14 +155,7 @@ void Play::keyPressed(const sf::Keyboard::Key& key)
 
 	if (key == Key::Escape)
 	{
-		m_level = 0;
-
-		m_player.unpossess();
-		for (auto& box : m_boxes)
-		{
-			delete box;
-		}
-		m_boxes.clear();
+		reset();
 
 		m_current_state = LEVEL_SELECT;
 	}
@@ -174,7 +199,17 @@ void Play::keyReleased(const sf::Keyboard::Key& key)
 
 void Play::reset()
 {
+	m_level = 0;
 
+	m_player.unpossess();
+	for (auto& box : m_boxes)
+	{
+		delete box;
+	}
+	m_boxes.clear();
+
+	m_start.reset();
+	m_end.reset();
 }
 
 void Play::physicsCollision(Visual& moving_obj, const Visual& static_obj)

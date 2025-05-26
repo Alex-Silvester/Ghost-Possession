@@ -31,7 +31,7 @@ set(SOURCE_FILES
 "src/constants.h" 
 "src/Visual.h"
 "src/Visual.cpp" 
-"src/Interfaces/IControllable.h")
+"src/Interfaces/IControllable.h" "src/States/Win.h" "src/States/Win.cpp")
 set(SUB_NAME The_Ghost_Possession)
 
 add_executable(${SUB_NAME} ${SOURCE_FILES})

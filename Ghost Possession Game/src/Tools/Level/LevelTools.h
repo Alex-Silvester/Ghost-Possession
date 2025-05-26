@@ -112,6 +112,8 @@ namespace lt
 	{
 		std::vector<GameObject*> objects;
 
+		flags[START_FLAG]->setPosition(0,flags[END_FLAG]->getFloatRect().size.y);
+
 		for (auto& datum : block_data)
 		{
 			if (datum.block_type == START_ID)
