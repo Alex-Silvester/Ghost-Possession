@@ -28,7 +28,7 @@ void Visual::setPosition(float x, float y)
 {
 	if (m_vertex_array.has_value())
 	{
-		m_position += sf::Vector2f(x, y);
+		m_position = sf::Vector2f(x, y);
 	}
 }
 
