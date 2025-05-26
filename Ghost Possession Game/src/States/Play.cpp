@@ -49,14 +49,14 @@ void Play::update(float dt)
 		m_start.emplace();
 		m_end.emplace();
 
-		m_start->init(m_flag_texture, { 8,8 });
-		m_end->init(m_flag_texture, { 8,8 });
+		m_start->init(m_flag_texture, { 4,4 });
+		m_end->init(m_flag_texture, { 4,4 });
 
 		m_boxes = lt::createBlockArray(
 			lt::readBlockData("Data/Levels/Level_" + std::to_string(m_level) + ".txt"),
 			m_box_texture, {&m_start.value(), &m_end.value()});
 
-		m_player.setPosition(m_start->getPosition());
+		m_player.setPosition(m_start->getPosition() - sf::Vector2f(0, m_player.getFloatRect().size.y / 2.f));
 	}
 
 	m_player.update(dt);
