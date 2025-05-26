@@ -44,6 +44,8 @@ private:
 	
 	sf::RenderWindow m_window = sf::RenderWindow(sf::VideoMode({ 720,540 }), "");
 
+	sf::View m_view;
+
 	std::vector<Visual> blocks;
 
 	//Visual m_start_flag;
@@ -67,5 +69,7 @@ private:
 	std::unique_ptr<Visual> m_selected_visual = std::make_unique<Visual>();
 
 	bool m_move_select = false;
+
+	bool m_move_view = false;
 
 };

@@ -47,6 +47,9 @@ bool Editor::init(std::string path)
 	blocks.back().setType(-2);
 	blocks.back().setPosition(0, 32);
 
+	m_view.setCenter(m_window.getView().getCenter());
+	m_view.setSize(m_window.getView().getSize());
+
 	return true;
 }
 
@@ -134,8 +137,18 @@ void Editor::end()
 
 void Editor::update()
 {
-	sf::Vector2f mouse_pos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_window));
+	sf::Vector2f view_pos = m_view.getCenter() - (sf::Vector2f)m_window.getSize() / 2.f;
+	sf::Vector2f mouse_pos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_window)) + view_pos;
 
+	//right mouse click stuff
+	if (m_move_view)
+	{
+		sf::Vector2f offset = m_mouse_start - mouse_pos;
+		m_view.move(offset);
+		m_window.setView(m_view);
+	}
+	
+	//left mouse click stuff
 	if (m_move_select)
 	{
 		sf::Vector2f offset = mouse_pos - m_mouse_start;
@@ -227,8 +240,15 @@ void Editor::keyReleased(const sf::Keyboard::Key& key)
 void Editor::mousePressed(const sf::Mouse::Button& button)
 {
 	using namespace sf::Mouse;
-	sf::Vector2f mouse_pos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_window));
+	sf::Vector2f view_pos = m_view.getCenter() - (sf::Vector2f)m_window.getSize()/2.f;
+	sf::Vector2f mouse_pos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_window)) + view_pos;
 
+	if (button == Button::Right)
+	{
+		m_move_view = true;
+		m_mouse_start = mouse_pos;
+		return;
+	}
 
 	if (m_selected_visual != nullptr)
 	{
@@ -263,7 +283,6 @@ void Editor::mousePressed(const sf::Mouse::Button& button)
 		m_mouse_start = m_outline_rect.getPosition();
 		mouse_held = true;
 	}
-
 }
 
 void Editor::mouseReleased(const sf::Mouse::Button& button)
@@ -279,6 +298,7 @@ void Editor::mouseReleased(const sf::Mouse::Button& button)
 
 	mouse_held = false;
 	m_move_select = false;
+	m_move_view = false;
 	m_outline_rect.setSize({ 0,0 });
 	m_outline_rect.setPosition({ -1,-1 });
 }
