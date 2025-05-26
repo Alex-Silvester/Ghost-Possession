@@ -36,17 +36,6 @@ bool Editor::init(std::string path)
 		return false;
 	}
 
-	blocks.emplace_back();
-	blocks.back().makeSprite(m_flag_texture, m_font);
-	blocks.back().scale({ 4,4 });
-	blocks.back().setType(-1);
-
-	blocks.emplace_back();
-	blocks.back().makeSprite(m_flag_texture, m_font);
-	blocks.back().scale({ 4,4 });
-	blocks.back().setType(-2);
-	blocks.back().setPosition(0, 32);
-
 	m_view.setCenter(m_window.getView().getCenter());
 	m_view.setSize(m_window.getView().getSize());
 
@@ -305,13 +294,42 @@ void Editor::mouseReleased(const sf::Mouse::Button& button)
 
 void Editor::createBlockArray(const std::vector<BlockData>& block_data)
 {
+	bool created_start = false;
+	bool created_end = false;
+
 	for (auto& datum : block_data)
 	{
+		if (datum.block_type == -1)
+		{
+			created_start = true;
+		}
+		else if (datum.block_type == -2)
+		{
+			created_end = true;
+		}
+
 		blocks.emplace_back(
 			sf::Vector2f(datum.position_x, datum.position_y), 
 			sf::Vector2i(datum.width, datum.height), 
-			m_texture,
+			datum.block_type >= 0 ? m_texture : m_flag_texture,
 			m_font,
 			datum.block_type);
+	}
+
+	if (!created_start)
+	{
+		blocks.emplace_back();
+		blocks.back().makeSprite(m_flag_texture, m_font);
+		blocks.back().scale({ 4,4 });
+		blocks.back().setType(-1);
+	}
+
+	if (!created_end)
+	{
+		blocks.emplace_back();
+		blocks.back().makeSprite(m_flag_texture, m_font);
+		blocks.back().scale({ 4,4 });
+		blocks.back().setType(-2);
+		blocks.back().setPosition(0, 32);
 	}
 }

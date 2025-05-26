@@ -12,13 +12,27 @@ public:
 	{
 		m_type = type;
 		m_texture = texture;
-		generateTexture(generateBlockMatrix(size.x, size.y), { 32,32 });
-		setPosition(position);
 
 		std::string type_str;
-		if (type >= 0) { type_str = std::to_string(type); }
-		else if (type == -1) { type_str = "s"; }
-		else { type_str = "e"; }
+		if (type >= 0) 
+		{
+			type_str = std::to_string(type); 
+			generateTexture(generateBlockMatrix(size.x, size.y), { 32,32 }); 
+		}
+		else if (type == -1) 
+		{ 
+			type_str = "s"; 
+			makeSprite(texture, font);
+			scale({ 4,4 });
+		}
+		else 
+		{ 
+			type_str = "e"; 
+			makeSprite(texture, font);
+			scale({ 4,4 });
+		}
+		setPosition(position);
+
 		m_id_text = sf::Text(*font, type_str);
 
 		m_id_text->setFillColor(sf::Color::Magenta);
