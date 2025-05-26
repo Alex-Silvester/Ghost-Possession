@@ -123,6 +123,11 @@ void Play::update(float dt)
 
 void Play::render()
 {
+	if (m_current_state != PLAY)
+	{
+		return;
+	}
+
 	if(m_start.has_value())
 	{
 		m_window->draw(m_start.value());
