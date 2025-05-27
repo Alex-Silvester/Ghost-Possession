@@ -20,7 +20,7 @@ public:
 	void keyPressed(const sf::Keyboard::Key& key) override;
 	void keyReleased(const sf::Keyboard::Key& key) override;
 
-	int* getLevelPtr() { return &m_level; }
+	std::string* getLevelPtr() { return &m_level; }
 
 private:
 
@@ -36,7 +36,7 @@ private:
 	std::shared_ptr<sf::Texture> m_player_texture = std::make_shared<sf::Texture>();
 	Player m_player;
 
-	int m_level = 0;
+	std::string m_level = "";
 
 	using StartFlag = GameEntity;
 	using EndFlag = GameEntity;

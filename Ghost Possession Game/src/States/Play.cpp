@@ -44,7 +44,7 @@ void Play::update(float dt)
 		return;
 	}
 
-	if (m_boxes.size() == 0 && std::filesystem::exists("Data/Levels/Level_" + std::to_string(m_level) + ".txt"))
+	if (m_boxes.size() == 0 && std::filesystem::exists("Data/Levels/" + m_level + ".txt"))
 	{
 		m_start.emplace();
 		m_end.emplace();
@@ -53,7 +53,7 @@ void Play::update(float dt)
 		m_end->init(m_flag_texture, { 4,4 });
 
 		m_boxes = lt::createBlockArray(
-			lt::readBlockData("Data/Levels/Level_" + std::to_string(m_level) + ".txt"),
+			lt::readBlockData("Data/Levels/" + m_level + ".txt"),
 			m_box_texture, {&m_start.value(), &m_end.value()});
 
 		m_player.setPosition(m_start->getPosition() - sf::Vector2f(0, m_player.getFloatRect().size.y / 2.f));
@@ -204,7 +204,7 @@ void Play::keyReleased(const sf::Keyboard::Key& key)
 
 void Play::reset()
 {
-	m_level = 0;
+	m_level = "";
 
 	m_player.unpossess();
 	for (auto& box : m_boxes)

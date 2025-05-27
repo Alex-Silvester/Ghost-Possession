@@ -25,7 +25,7 @@ bool LevelSelect::init(std::shared_ptr<sf::RenderWindow> window)
 	std::string path = "Data/Levels";
 	for (const auto& entry : std::filesystem::directory_iterator(path))
 	{
-		std::string file_name = entry.path().filename().generic_string().replace(5, 1, " ").replace(7, 4, "");
+		std::string file_name = entry.path().filename().generic_string().replace(7, 4, "");
 		std::cout << file_name << std::endl;
 
 		m_level_select_text.emplace_back(ScalingText(m_font, file_name, true));
@@ -77,7 +77,7 @@ void LevelSelect::mousePressed(const sf::Mouse::Button& button)
 			{
 				continue;
 			}
-			*level_ptr = idx;
+			*level_ptr = level_text.getText()->getString();
 			for (ScalingText& text : m_level_select_text)
 			{
 				text.reset();
