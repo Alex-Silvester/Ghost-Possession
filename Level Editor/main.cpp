@@ -31,6 +31,8 @@ int main()
 			index++;
 			name += "_" + std::to_string(index);
 		}
+		std::ofstream file("Data/" + name + ".txt");
+		file.close();
 	}
 	else
 	{
