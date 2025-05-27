@@ -23,9 +23,13 @@ bool LevelSelect::init(std::shared_ptr<sf::RenderWindow> window)
 	m_default_text_height = m_window->getSize().y / 2;
 	int idx = 0;
 	std::string path = "Data/Levels";
+
+	//Get all of the names of the levels
+	//Need to figure a priority system to the levels to get the correct ones first
 	for (const auto& entry : std::filesystem::directory_iterator(path))
 	{
-		std::string file_name = entry.path().filename().generic_string().replace(7, 4, "");
+		std::string file_name = entry.path().filename().generic_string();
+		file_name.replace(file_name.length() - 4, 4, "");
 		std::cout << file_name << std::endl;
 
 		m_level_select_text.emplace_back(ScalingText(m_font, file_name, true));
