@@ -62,7 +62,8 @@ void Editor::run()
 			if (event->is<Event::Resized>())
 			{
 				sf::Vector2f size = static_cast<sf::Vector2f>(m_window.getSize());
-				m_window.setView(sf::View(sf::FloatRect(sf::Vector2f(), size)));
+				m_view = sf::View(m_view.getCenter(), size);
+				m_window.setView(m_view);
 			}
 			if (event->is<Event::Closed>())
 			{
@@ -76,6 +77,8 @@ void Editor::run()
 				mousePressed(event.value().getIf<Event::MouseButtonPressed>()->button);
 			if (event->is<sf::Event::MouseButtonReleased>())
 				mouseReleased(event.value().getIf<Event::MouseButtonReleased>()->button);
+			if (event->is<sf::Event::MouseWheelScrolled>())
+				wheelScrolled(*event.value().getIf<Event::MouseWheelScrolled>());
 		}
 
 		if (m_window.isOpen())
@@ -126,8 +129,11 @@ void Editor::end()
 
 void Editor::update()
 {
-	sf::Vector2f view_pos = m_view.getCenter() - (sf::Vector2f)m_window.getSize() / 2.f;
-	sf::Vector2f mouse_pos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_window)) + view_pos;
+	sf::Vector2f view_pos = m_view.getCenter() - m_view.getSize() / 2.f;
+	sf::Vector2f mouse_pos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_window));
+
+	mouse_pos = { (mouse_pos.x / m_window.getSize().x) * m_view.getSize().x, (mouse_pos.y / m_window.getSize().y) * m_view.getSize().y };
+	mouse_pos += view_pos;
 
 	//right mouse click stuff
 	if (m_move_view)
@@ -229,8 +235,11 @@ void Editor::keyReleased(const sf::Keyboard::Key& key)
 void Editor::mousePressed(const sf::Mouse::Button& button)
 {
 	using namespace sf::Mouse;
-	sf::Vector2f view_pos = m_view.getCenter() - (sf::Vector2f)m_window.getSize()/2.f;
-	sf::Vector2f mouse_pos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_window)) + view_pos;
+	sf::Vector2f view_pos = m_view.getCenter() - m_view.getSize()/2.f;
+	sf::Vector2f mouse_pos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_window));
+
+	mouse_pos = { (mouse_pos.x / m_window.getSize().x) * m_view.getSize().x, (mouse_pos.y / m_window.getSize().y) * m_view.getSize().y};
+	mouse_pos += view_pos;
 
 	if (button == Button::Right)
 	{
@@ -290,6 +299,20 @@ void Editor::mouseReleased(const sf::Mouse::Button& button)
 	m_move_view = false;
 	m_outline_rect.setSize({ 0,0 });
 	m_outline_rect.setPosition({ -1,-1 });
+}
+
+void Editor::wheelScrolled(const sf::Event::MouseWheelScrolled& wheel)
+{
+	if (wheel.delta >= 0)
+	{
+		m_view.setSize(m_view.getSize() - sf::Vector2f(30, 30 * m_window.getSize().y/m_window.getSize().x));
+	}
+	else if (wheel.delta < 0)
+	{
+		m_view.setSize(m_view.getSize() + sf::Vector2f(30, 30 * m_window.getSize().y / m_window.getSize().x));
+	}
+
+	m_window.setView(m_view);
 }
 
 void Editor::createBlockArray(const std::vector<BlockData>& block_data)

@@ -38,6 +38,8 @@ private:
 	void mousePressed (const sf::Mouse::Button& button);
 	void mouseReleased(const sf::Mouse::Button& button);
 
+	void wheelScrolled(const sf::Event::MouseWheelScrolled& wheel);
+
 	void createBlockArray(const std::vector<BlockData>& block_data);
 
 private:
